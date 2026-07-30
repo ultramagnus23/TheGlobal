@@ -1,26 +1,203 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   THE GLOBAL — design tokens
+   Source of truth for §3 (colour) and §4 (type) of the build spec.
+   No arbitrary hex values are permitted in JSX — everything routes through
+   these custom properties and their Tailwind theme mapping below.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* --- 3.1 Neutral foundation --- */
+  --canvas: #fbfbf9;
+  --canvas-sunken: #f4f4f1;
+  --surface: #ffffff;
+  --surface-inset: #f7f7f4;
+  --hairline: #e4e5e1;
+  --border: #d2d4cf;
+  --border-interactive: #8b908c;
+  --ink: #0b0f14;
+  --ink-secondary: #454c56;
+  --ink-tertiary: #5e6673;
+
+  /* --- 3.2 Meridian Navy (house colour) --- */
+  --navy-900: #0a1f33;
+  --navy-800: #0e2a47;
+  --navy-700: #143a5e;
+  --navy-600: #1a4a78;
+  --navy-100: #e8edf2;
+
+  /* --- 3.3 Brass (non-text-only accent; brass-text is the sole exception) --- */
+  --brass: #b68a35;
+  --brass-text: #8a6520;
+
+  /* --- 3.5 Semantic states --- */
+  --success: #1f6b34;
+  --warning: #8a5a00;
+  --danger: #a3221f;
+
+  /* --- WhatsApp (button-only, never a general accent) --- */
+  --whatsapp: #128c7e;
+
+  /* Radii + shadow ceiling per §2.5 */
+  --radius-card: 24px;
+  --shadow-card: 0 1px 2px rgba(11, 15, 20, 0.04);
+}
+
+/* --- 3.4 Partner colours — quarantined behind data-brand scoping ---
+   These variables do not exist at :root. They only resolve inside a
+   [data-brand="astral"] or [data-brand="somany"] subtree, so any
+   text-astral-* / bg-somany-* utility used outside those routes/cards
+   renders as `initial` (transparent / inherit) rather than the partner hue.
+   A build-time lint rule (see /README) should additionally flag any use of
+   these classes outside content/astral, content/somany, /app/astral,
+   /app/somany, and the two homepage division cards. */
+[data-brand="astral"] {
+  --partner: #0066cc;
+  --partner-text: #005ab4;
+}
+
+[data-brand="somany"] {
+  --partner: #c62828;
+  --partner-text: #b31e1e;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Fonts */
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-numeral: var(--font-numeral);
+  --font-devanagari: var(--font-devanagari);
+
+  /* Colour tokens exposed as Tailwind utilities, e.g. bg-canvas, text-ink */
+  --color-canvas: var(--canvas);
+  --color-canvas-sunken: var(--canvas-sunken);
+  --color-surface: var(--surface);
+  --color-surface-inset: var(--surface-inset);
+  --color-hairline: var(--hairline);
+  --color-border: var(--border);
+  --color-border-interactive: var(--border-interactive);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-tertiary: var(--ink-tertiary);
+
+  --color-navy-900: var(--navy-900);
+  --color-navy-800: var(--navy-800);
+  --color-navy-700: var(--navy-700);
+  --color-navy-600: var(--navy-600);
+  --color-navy-100: var(--navy-100);
+
+  --color-brass: var(--brass);
+  --color-brass-text: var(--brass-text);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-whatsapp: var(--whatsapp);
+
+  /* Partner tokens — only meaningful where --partner is defined (see above) */
+  --color-partner: var(--partner);
+  --color-partner-text: var(--partner-text);
+
+  /* --- 4.1 Type scale (mobile values; desktop set via clamp() in utilities) --- */
+  --text-hero: clamp(2.5rem, 1.5rem + 4vw, 4.75rem);
+  --text-h1: clamp(2.125rem, 1.7rem + 1.8vw, 3.75rem);
+  --text-h2: clamp(1.75rem, 1.45rem + 1.3vw, 2.75rem);
+  --text-h3: clamp(1.4375rem, 1.25rem + 0.8vw, 1.875rem);
+  --text-lead: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  --text-body: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --text-spec: clamp(1.0625rem, 1.02rem + 0.15vw, 1.125rem);
+  --text-eyebrow: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --text-legal: 1rem;
+  --text-numeral: clamp(2.75rem, 2rem + 3vw, 4.5rem);
+
+  --radius-card: var(--radius-card);
+  --shadow-card: var(--shadow-card);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.125rem; /* 18px mobile floor, never smaller */
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.25rem; /* 20px desktop baseline */
+  }
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+table, .tabular {
+  font-family: var(--font-numeral), ui-sans-serif, system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- 3.6 Focus state (non-negotiable) --- */
+:focus-visible {
+  outline: 3px solid var(--navy-600);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip-to-content link: first focusable element on every page */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  background: var(--navy-800);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* --- 2.6 Scroll-entrance motion, gated --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1), transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Long-form measure per §4.2 */
+.prose-measure {
+  max-width: 34em;
 }
