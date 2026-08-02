@@ -35,7 +35,8 @@ export default function Home() {
                 description="Exclusive authorised Somany distributor for Rajasthan — floor tiles, wall tiles, slabs, sanitaryware and bath fittings."
                 href="/somany"
                 imageLabel="Somany large-format slab"
-                imageAlt="A single large-format Somany tile slab photographed on a near-white sweep"
+                imageAlt="A single large-format tile slab photographed on a near-white sweep"
+                imageSrc="/images/generated/somany-tile-slab.webp"
               />
               <DivisionCard
                 brand="astral"
@@ -44,7 +45,8 @@ export default function Home() {
                 description="Authorised Astral distributor — pipes, fittings, plumbing, water and drainage systems."
                 href="/astral"
                 imageLabel="Astral pipe fitting"
-                imageAlt="A single Astral pipe joint photographed on a near-white sweep"
+                imageAlt="A single pipe fitting joint photographed on a near-white sweep"
+                imageSrc="/images/generated/astral-pipe-fitting.webp"
               />
             </div>
           </div>

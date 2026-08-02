@@ -12,6 +12,7 @@ const productSchema = z.object({
   range: z.string(),
   description: z.string(),
   imageLabel: z.string(),
+  image: z.string().optional(),
   availability: z.enum(["in-stock", "limited", "made-to-order"]),
   attributes: z.array(attributeSchema),
   specs: z.array(specRowSchema),
@@ -30,6 +31,7 @@ export const products: Product[] = [
     description:
       "Pressure-rated CPVC pipe for hot and cold water plumbing, supplied ex-stock from our Jaipur warehouse in half-inch to two-inch sizes.",
     imageLabel: "CPVC pipe length on sweep",
+    image: "/images/generated/astral-pipe-fitting.webp",
     availability: "in-stock",
     attributes: [
       { label: "Size range", value: "15mm – 50mm (½\" – 2\")" },
@@ -57,6 +59,7 @@ export const products: Product[] = [
     description:
       "Soil, waste and rain water pipe for drainage systems, held in depth for site-wise dispatch across Rajasthan.",
     imageLabel: "SWR pipe fitting on sweep",
+    image: "/images/generated/swr-pipe.webp",
     availability: "in-stock",
     attributes: [
       { label: "Size range", value: "75mm – 160mm" },
@@ -82,6 +85,7 @@ export const products: Product[] = [
     description:
       "Large-format vitrified floor tile with a matt finish, held in full-range depth at our Jaipur warehouse for statewide dispatch.",
     imageLabel: "Vitrified floor tile slab on sweep",
+    image: "/images/generated/somany-tile-slab.webp",
     availability: "in-stock",
     attributes: [
       { label: "Size", value: "600mm × 1200mm" },
@@ -106,6 +110,7 @@ export const products: Product[] = [
     range: "Somany Ceramic Collection",
     description: "Glazed ceramic wall tile for kitchens and bathrooms, available in a full range of finishes.",
     imageLabel: "Ceramic wall tile texture close-up",
+    image: "/images/generated/ceramic-wall-tile.webp",
     availability: "in-stock",
     attributes: [
       { label: "Size", value: "300mm × 600mm" },
@@ -129,6 +134,7 @@ export const products: Product[] = [
     range: "Somany Sanitaryware Collection",
     description: "Wall-hung water closet with concealed cistern compatibility, for modern bathroom fit-outs.",
     imageLabel: "Wall-hung water closet on sweep",
+    image: "/images/generated/water-closet.webp",
     availability: "limited",
     attributes: [
       { label: "Type", value: "Wall-hung, S-trap" },

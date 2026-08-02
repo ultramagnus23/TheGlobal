@@ -24,7 +24,8 @@ export default function AstralPage() {
         heading="Astral pipes & plumbing systems."
         sub="Pipes, fittings, plumbing, water and drainage systems — held in depth at our Jaipur warehouse."
         imageLabel="Astral pipe fitting on sweep"
-        imageAlt="A single Astral pipe joint photographed on a near-white sweep"
+        imageAlt="Grey CPVC pipes and fittings stacked in a warehouse"
+        imageSrc="/images/generated/astral-hero.webp"
         ctaHref="/contact"
         ctaLabel="Enquire Now"
       />
