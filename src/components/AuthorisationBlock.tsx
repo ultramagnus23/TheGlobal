@@ -8,7 +8,7 @@ interface AuthorisationBlockProps {
 
 export function AuthorisationBlock({ eyebrow, statement, detail }: AuthorisationBlockProps) {
   return (
-    <section className="py-24 md:py-32 bg-canvas-sunken">
+    <section className="py-24 md:py-32">
       <div className="mx-auto max-w-5xl px-6 grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 items-center">
         <PlaceholderImage
           label="Authorisation certificate"

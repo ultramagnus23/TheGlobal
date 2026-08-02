@@ -183,6 +183,13 @@ table, .tabular {
   transform: translateY(0);
 }
 
+/* Content in a ColorRevealSection waits for the background crossfade to
+   finish settling before it appears, so text is never shown against a
+   mid-transition background colour. */
+.reveal-delayed {
+  transition-delay: 500ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
@@ -193,6 +200,7 @@ table, .tabular {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }
