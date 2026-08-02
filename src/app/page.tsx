@@ -7,7 +7,7 @@ import { StatementSection } from "@/components/StatementSection";
 import { ProjectPlate } from "@/components/ProjectPlate";
 import { AudienceRow } from "@/components/AudienceRow";
 import { ContactSection } from "@/components/ContactSection";
-import { Reveal } from "@/components/Reveal";
+import { ColorRevealSection } from "@/components/ColorRevealSection";
 import { projects } from "@/content/projects";
 import { audiences } from "@/content/audiences";
 
@@ -17,13 +17,13 @@ export default function Home() {
       {/* 1. Hero */}
       <Hero />
 
-      {/* 2. Credential band */}
-      <Reveal>
+      {/* 2. Credential band — the hero ends on a dark navy scrim, so this crossfades up to it */}
+      <ColorRevealSection from="var(--navy-900)" to="var(--canvas-sunken)">
         <CredentialBand />
-      </Reveal>
+      </ColorRevealSection>
 
       {/* 3. The two divisions */}
-      <Reveal>
+      <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas)">
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-5xl px-6">
             <h2 className="text-h2 font-bold text-center mb-12">Two businesses. One standard.</h2>
@@ -49,20 +49,20 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </Reveal>
+      </ColorRevealSection>
 
       {/* 4. Capability bento */}
-      <Reveal>
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
         <BentoGrid />
-      </Reveal>
+      </ColorRevealSection>
 
-      {/* 5. Editorial statement */}
-      <Reveal>
+      {/* 5. Editorial statement — the one deliberate dark beat, Apple-style, ambient not jacked */}
+      <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
         <StatementSection />
-      </Reveal>
+      </ColorRevealSection>
 
       {/* 6. Selected projects */}
-      <Reveal>
+      <ColorRevealSection from="var(--navy-900)" to="var(--canvas)">
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-6xl px-6">
             <h2 className="text-h2 font-bold text-center mb-12">Supplied, delivered, built.</h2>
@@ -81,11 +81,11 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </Reveal>
+      </ColorRevealSection>
 
       {/* 7. Who we supply */}
-      <Reveal>
-        <section className="py-24 md:py-32 bg-canvas-sunken">
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas-sunken)">
+        <section className="py-24 md:py-32">
           <div className="mx-auto max-w-3xl px-6">
             <h2 className="text-h2 font-bold text-center mb-12">Who we supply</h2>
             <div>
@@ -95,10 +95,12 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </Reveal>
+      </ColorRevealSection>
 
       {/* 8. Contact */}
-      <ContactSection />
+      <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas-sunken)">
+        <ContactSection />
+      </ColorRevealSection>
     </main>
   );
 }

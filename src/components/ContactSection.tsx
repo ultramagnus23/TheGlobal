@@ -9,7 +9,7 @@ export function ContactSection() {
   );
 
   return (
-    <section className="bg-canvas-sunken py-24 md:py-32">
+    <section className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="text-h2 font-bold text-center mb-12">Call us. We answer.</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

@@ -1,6 +1,6 @@
 export function StatementSection() {
   return (
-    <section className="bg-navy-900 py-24 md:py-40">
+    <section className="py-24 md:py-40">
       <div className="mx-auto max-w-3xl px-6 text-center space-y-4">
         <p className="text-h2 font-bold text-white leading-tight">
           When a project cannot wait, inventory is the only real advantage.
