@@ -20,6 +20,13 @@ interface ColorRevealSectionProps {
  * `.reveal-delayed` in globals.css), so text is never shown mid-crossfade
  * against the wrong background — contrast ratios are never at risk.
  * Fully collapses to an instant, non-animated state under prefers-reduced-motion.
+ *
+ * Triggers on the section's leading edge crossing a fixed point near the
+ * bottom of the viewport (rootMargin), not on a percentage of its own area
+ * becoming visible (threshold). The area-based approach fires inconsistently
+ * across sections of different heights — late and sluggish for tall ones,
+ * near-instant for short ones — which reads as erratic rather than deliberate.
+ * An edge trigger fires at a predictable moment regardless of section height.
  */
 export function ColorRevealSection({ from, to, children, className }: ColorRevealSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,7 +42,7 @@ export function ColorRevealSection({ from, to, children, className }: ColorRevea
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { rootMargin: "0px 0px -15% 0px", threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -47,7 +54,7 @@ export function ColorRevealSection({ from, to, children, className }: ColorRevea
       className={className}
       style={{
         backgroundColor: visible ? to : from,
-        transition: "background-color 600ms cubic-bezier(0.22, 1, 0.36, 1)",
+        transition: "background-color 400ms cubic-bezier(0.22, 1, 0.36, 1)",
       }}
     >
       <div className={cn("reveal reveal-delayed", visible && "is-visible")}>{children}</div>
