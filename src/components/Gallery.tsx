@@ -4,8 +4,13 @@ import { useState } from "react";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { cn } from "@/lib/cn";
 
+interface GalleryImage {
+  label: string;
+  src?: string;
+}
+
 interface GalleryProps {
-  images: string[];
+  images: GalleryImage[];
   alt: string;
 }
 
@@ -23,7 +28,8 @@ export function Gallery({ images, alt }: GalleryProps) {
     <div className="space-y-4">
       <div className="relative">
         <PlaceholderImage
-          label={images[index]}
+          label={images[index].label}
+          src={images[index].src}
           alt={`${alt} — image ${index + 1} of ${images.length}`}
           className="aspect-[4/3] rounded-2xl"
         />
@@ -53,17 +59,17 @@ export function Gallery({ images, alt }: GalleryProps) {
         <div className="flex gap-3 overflow-x-auto pb-1">
           {images.map((img, i) => (
             <button
-              key={img}
+              key={img.label}
               type="button"
               onClick={() => setIndex(i)}
-              aria-label={`Show image ${i + 1}: ${img}`}
+              aria-label={`Show image ${i + 1}: ${img.label}`}
               aria-current={i === index}
               className={cn(
                 "shrink-0 h-24 w-24 rounded-xl overflow-hidden border-2",
                 i === index ? "border-navy-600" : "border-transparent"
               )}
             >
-              <PlaceholderImage label="" alt="" className="h-full w-full" />
+              <PlaceholderImage label="" alt="" src={img.src} className="h-full w-full" />
             </button>
           ))}
         </div>

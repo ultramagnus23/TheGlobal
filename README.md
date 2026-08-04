@@ -95,19 +95,22 @@ or `somanyCategories` in [`src/content/divisions.ts`](src/content/divisions.ts) 
 
 ## 5. Swapping a placeholder image for a real photo
 
-Every photo on the site is currently a labelled placeholder box (built with the
-`PlaceholderImage` component) so the layout can be reviewed before real photography exists — see
-[`PHOTOGRAPHY-BRIEF.md`](PHOTOGRAPHY-BRIEF.md) for the shot list.
+Most photos on the site are AI-generated stand-ins living in `/public/images/generated/` — used
+only because no real photography exists yet, not because they're good enough to keep. A few spots
+(the authorisation certificate, any staff photo) are still flat labelled boxes on purpose — see
+[`PHOTOGRAPHY-BRIEF.md`](PHOTOGRAPHY-BRIEF.md) for why and for the full shot list.
 
-To swap one in:
-1. Add the optimised image file to `/public/images/`.
-2. Find the `<PlaceholderImage ... />` usage for that spot (search the component/page files for
-   its `label` text, e.g. `"Jaipur warehouse, racked to the ceiling"`).
-3. Replace it with Next.js's `<Image>` component:
-   ```tsx
-   <Image src="/images/warehouse-hero.jpg" alt="Interior of The Global's Jaipur warehouse" fill className="object-cover" />
-   ```
-   Keep the `alt` text descriptive — screen readers depend on it.
+The `PlaceholderImage` component (`src/components/PlaceholderImage.tsx`) handles both cases: pass
+it a `src` (or `imageSrc` on components like `DivisionHero`/`DivisionCard`) and it renders that
+image via `next/image`; omit `src` and it renders the flat labelled box instead.
+
+To swap a generated placeholder or flat box for a real photo:
+1. Add the optimised image file to `/public/images/` (a new subfolder is fine, e.g. `/public/images/real/`).
+2. Find where that spot's `src`/`imageSrc` (or, for flat placeholders, `label`) is set — search for
+   its text, e.g. `"Jaipur warehouse, racked to the ceiling"`, or search `/images/generated/` for
+   the current generated file.
+3. Point `src`/`imageSrc` at the new file, e.g. `"/images/real/warehouse-hero.jpg"`.
+4. Update the matching `alt` text to actually describe the new photo — screen readers depend on it.
 
 ## 6. Adding real PDFs to Downloads
 

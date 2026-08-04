@@ -15,7 +15,7 @@ export function SpecTable({ rows }: SpecTableProps) {
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr key={row.label} className={i % 2 === 1 ? "bg-[#FAFAF8]" : undefined}>
+            <tr key={row.label} className={i % 2 === 1 ? "bg-surface" : undefined}>
               <td className="p-4 border-b border-hairline text-ink-secondary">{row.label}</td>
               <td className="p-4 border-b border-hairline tabular text-ink font-medium">{row.value}</td>
             </tr>

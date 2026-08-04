@@ -98,7 +98,7 @@ export default async function ProductDetailPage({
 
       <section className="py-12 md:py-20">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <Gallery images={[product.imageLabel]} alt={product.name} />
+          <Gallery images={[{ label: product.imageLabel, src: product.image }]} alt={product.name} />
 
           <div className="space-y-6">
             <div>

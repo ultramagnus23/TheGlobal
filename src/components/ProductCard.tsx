@@ -19,9 +19,14 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.category}/${product.slug}`}
-      className="block rounded-2xl border border-border bg-surface overflow-hidden hover:shadow-[0_1px_2px_rgba(11,15,20,0.04)]"
+      className="block rounded-2xl border border-border bg-surface overflow-hidden hover:shadow-[0_1px_2px_rgba(19, 19, 15,0.04)]"
     >
-      <PlaceholderImage label={product.imageLabel} alt={product.name} className="aspect-[4/3]" />
+      <PlaceholderImage
+        label={product.imageLabel}
+        alt={product.name}
+        src={product.image}
+        className="aspect-[4/3]"
+      />
       <div className="p-6 space-y-2">
         <p className="text-h3 font-semibold text-ink">{product.name}</p>
         <p className="text-body text-ink-secondary">{product.range}</p>

@@ -2,36 +2,46 @@
 
 /* ==========================================================================
    THE GLOBAL — design tokens
-   Source of truth for §3 (colour) and §4 (type) of the build spec.
-   No arbitrary hex values are permitted in JSX — everything routes through
-   these custom properties and their Tailwind theme mapping below.
+   "Ink & Brass" — warm dark-editorial direction (Fraunces serif display,
+   near-black ink, warm stone/paper neutrals, brass/astral/somany accents),
+   adapted from a client-supplied reference mockup. Token NAMES are kept
+   stable from the original "Jaipur Stone & Meridian Navy" system so every
+   component that already references bg-canvas / text-navy-800 / etc. picks
+   up the new palette automatically — only the underlying VALUES changed.
+   One deliberate deviation from the reference: type sizes stay at the
+   original accessible floor (18px+ body) rather than the reference's
+   13–15px, because that floor was called out as the single highest-impact
+   accessibility decision in the brief, for an older audience reading
+   outdoors on a phone.
    ========================================================================== */
 
 :root {
-  /* --- 3.1 Neutral foundation --- */
-  --canvas: #fbfbf9;
-  --canvas-sunken: #f4f4f1;
-  --surface: #ffffff;
-  --surface-inset: #f7f7f4;
-  --hairline: #e4e5e1;
-  --border: #d2d4cf;
-  --border-interactive: #8b908c;
-  --ink: #0b0f14;
-  --ink-secondary: #454c56;
-  --ink-tertiary: #5e6673;
+  /* --- Neutral foundation (warm stone/paper, not cool grey) --- */
+  --canvas: #f5f1e8;
+  --canvas-sunken: #eae4d6;
+  --surface: #faf6ec;
+  --surface-inset: #efe8d6;
+  --hairline: rgba(19, 19, 15, 0.1);
+  --border: #ddd5c2;
+  --border-interactive: #8b8477;
+  --ink: #16150f;
+  --ink-secondary: #4a473d;
+  --ink-tertiary: #6b6759;
 
-  /* --- 3.2 Meridian Navy (house colour) --- */
-  --navy-900: #0a1f33;
-  --navy-800: #0e2a47;
-  --navy-700: #143a5e;
-  --navy-600: #1a4a78;
-  --navy-100: #e8edf2;
+  /* --- "Navy" family repurposed as deep ink — house colour, full-bleed dark
+     sections, primary buttons. Kept the token names so every existing
+     bg-navy-800 / text-navy-800 usage inherits the new colour for free. --- */
+  --navy-900: #0e0d0a;
+  --navy-800: #16150f;
+  --navy-700: #242019;
+  --navy-600: #5c8aa3;
+  --navy-100: #ede7d8;
 
-  /* --- 3.3 Brass (non-text-only accent; brass-text is the sole exception) --- */
-  --brass: #b68a35;
-  --brass-text: #8a6520;
+  /* --- Brass — the signature accent, still non-text-only by default --- */
+  --brass: #9c7a4f;
+  --brass-text: #6b4f2e;
 
-  /* --- 3.5 Semantic states --- */
+  /* --- Semantic states (unchanged — functional, not part of the "feel") --- */
   --success: #1f6b34;
   --warning: #8a5a00;
   --danger: #a3221f;
@@ -41,25 +51,25 @@
 
   /* Radii + shadow ceiling per §2.5 */
   --radius-card: 24px;
-  --shadow-card: 0 1px 2px rgba(11, 15, 20, 0.04);
+  --shadow-card: 0 1px 2px rgba(19, 19, 15, 0.06);
 }
 
-/* --- 3.4 Partner colours — quarantined behind data-brand scoping ---
-   These variables do not exist at :root. They only resolve inside a
-   [data-brand="astral"] or [data-brand="somany"] subtree, so any
-   text-astral-* / bg-somany-* utility used outside those routes/cards
-   renders as `initial` (transparent / inherit) rather than the partner hue.
-   A build-time lint rule (see /README) should additionally flag any use of
-   these classes outside content/astral, content/somany, /app/astral,
-   /app/somany, and the two homepage division cards. */
+/* --- Partner colours — quarantined behind data-brand scoping ---
+   Shifted from generic blue/red to the reference's warm teal (Astral) and
+   brass-gold (Somany), still routed only through this attribute selector so
+   they stay out of the cascade everywhere else. */
 [data-brand="astral"] {
-  --partner: #0066cc;
-  --partner-text: #005ab4;
+  --partner: #3a5f73;
+  --partner-glow: #6fa0bc;
+  --partner-text: #2a4756;
+  --partner-ink: #16262e;
 }
 
 [data-brand="somany"] {
-  --partner: #c62828;
-  --partner-text: #b31e1e;
+  --partner: #b99a6b;
+  --partner-glow: #d4b98a;
+  --partner-text: #7a5c38;
+  --partner-ink: #2a241c;
 }
 
 @theme inline {
@@ -99,7 +109,9 @@
   --color-partner: var(--partner);
   --color-partner-text: var(--partner-text);
 
-  /* --- 4.1 Type scale (mobile values; desktop set via clamp() in utilities) --- */
+  /* --- Type scale (mobile values; desktop set via clamp() in utilities) ---
+     Sizes unchanged from the original accessible system — only the
+     typeface (Fraunces vs Manrope) and letter-spacing shifted. */
   --text-hero: clamp(2.5rem, 1.5rem + 4vw, 4.75rem);
   --text-h1: clamp(2.125rem, 1.7rem + 1.8vw, 3.75rem);
   --text-h2: clamp(1.75rem, 1.45rem + 1.3vw, 2.75rem);
@@ -138,7 +150,8 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display), ui-serif, serif;
+  letter-spacing: -0.01em;
 }
 
 table, .tabular {
@@ -160,7 +173,7 @@ table, .tabular {
   top: -100px;
   z-index: 100;
   background: var(--navy-800);
-  color: #fff;
+  color: var(--canvas);
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   font-weight: 600;
@@ -175,7 +188,7 @@ table, .tabular {
 .reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1), transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 350ms cubic-bezier(0.22, 1, 0.36, 1), transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.is-visible {
@@ -185,9 +198,11 @@ table, .tabular {
 
 /* Content in a ColorRevealSection waits for the background crossfade to
    finish settling before it appears, so text is never shown against a
-   mid-transition background colour. */
+   mid-transition background colour. Matches ColorRevealSection's 400ms
+   background-color transition exactly — total time to fully-visible
+   content is ~750ms, not the ~1.1s it was before. */
 .reveal-delayed {
-  transition-delay: 500ms;
+  transition-delay: 400ms;
 }
 
 @media (prefers-reduced-motion: reduce) {

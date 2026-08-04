@@ -10,6 +10,7 @@ interface DivisionCardProps {
   href: string;
   imageLabel: string;
   imageAlt: string;
+  imageSrc?: string;
 }
 
 export function DivisionCard({
@@ -20,10 +21,11 @@ export function DivisionCard({
   href,
   imageLabel,
   imageAlt,
+  imageSrc,
 }: DivisionCardProps) {
   return (
     <div data-brand={brand} className="flex-1 rounded-3xl overflow-hidden border border-border bg-surface">
-      <PlaceholderImage label={imageLabel} alt={imageAlt} className="aspect-[4/3]" />
+      <PlaceholderImage label={imageLabel} alt={imageAlt} src={imageSrc} className="aspect-[4/3]" />
       <div className={cn("border-t-[3px] p-6 md:p-8 space-y-3")} style={{ borderColor: "var(--partner)" }}>
         <p
           className="text-eyebrow uppercase tracking-[0.1em] font-semibold"

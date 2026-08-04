@@ -8,29 +8,29 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const CANVAS = "#FBFBF9";
-const NAVY_800 = "#0E2A47";
+const CANVAS = "#F5F1E8";
+const INK_800 = "#16150F";
 const WHITE = "#FFFFFF";
 
 const colorRows: Array<{ token: string; hex: string; bg: string; note: string }> = [
-  { token: "--ink on --canvas", hex: "#0B0F14", bg: CANVAS, note: "Headings, primary body" },
-  { token: "--ink-secondary on --canvas", hex: "#454C56", bg: CANVAS, note: "Sub-lines, captions" },
-  { token: "--ink-tertiary on --canvas", hex: "#5E6673", bg: CANVAS, note: "Legal text, 18px min" },
-  { token: "--navy-800 on --canvas", hex: NAVY_800, bg: CANVAS, note: "Primary brand colour" },
-  { token: "white on --navy-800", hex: WHITE, bg: NAVY_800, note: "Primary button label" },
-  { token: "--brass-text on --canvas", hex: "#8A6520", bg: CANVAS, note: "Only gold permitted as text <24px" },
-  { token: "--astral-text on --canvas", hex: "#005AB4", bg: CANVAS, note: "Astral route text-safe variant" },
-  { token: "--somany-text on --canvas", hex: "#B31E1E", bg: CANVAS, note: "Somany route text-safe variant" },
+  { token: "--ink on --canvas", hex: "#16150F", bg: CANVAS, note: "Headings, primary body" },
+  { token: "--ink-secondary on --canvas", hex: "#4A473D", bg: CANVAS, note: "Sub-lines, captions" },
+  { token: "--ink-tertiary on --canvas", hex: "#6B6759", bg: CANVAS, note: "Legal text, 18px min" },
+  { token: "--navy-800 (ink) on --canvas", hex: INK_800, bg: CANVAS, note: "Primary brand colour" },
+  { token: "white on --navy-800 (ink)", hex: WHITE, bg: INK_800, note: "Primary button label" },
+  { token: "--brass-text on --canvas", hex: "#6B4F2E", bg: CANVAS, note: "Only brass permitted as text <24px" },
+  { token: "--astral partner-text on --canvas", hex: "#2A4756", bg: CANVAS, note: "Astral route text-safe variant" },
+  { token: "--somany partner-text on --canvas", hex: "#7A5C38", bg: CANVAS, note: "Somany route text-safe variant" },
   { token: "white on --success", hex: WHITE, bg: "#1F6B34", note: "In-stock chip" },
   { token: "white on --warning", hex: WHITE, bg: "#8A5A00", note: "Limited-stock chip" },
   { token: "white on --danger", hex: WHITE, bg: "#A3221F", note: "Made-to-order chip" },
 ];
 
 const typeScale: Array<{ role: string; mobile: string; desktop: string; weight: string }> = [
-  { role: "Hero display", mobile: "40px", desktop: "76px", weight: "700" },
-  { role: "H1", mobile: "34px", desktop: "60px", weight: "700" },
-  { role: "H2", mobile: "28px", desktop: "44px", weight: "700" },
-  { role: "H3", mobile: "23px", desktop: "30px", weight: "600" },
+  { role: "Hero display", mobile: "40px", desktop: "76px", weight: "600" },
+  { role: "H1", mobile: "34px", desktop: "60px", weight: "600" },
+  { role: "H2", mobile: "28px", desktop: "44px", weight: "600" },
+  { role: "H3", mobile: "23px", desktop: "30px", weight: "500" },
   { role: "Lead paragraph", mobile: "20px", desktop: "24px", weight: "400" },
   { role: "Body", mobile: "18px", desktop: "20px", weight: "400" },
   { role: "Spec / table", mobile: "17px", desktop: "18px", weight: "400" },
@@ -48,7 +48,7 @@ function Swatch({ label, hex, textOn }: { label: string; hex: string; textOn?: "
       >
         <span
           className="text-sm font-semibold tabular"
-          style={{ color: textOn === "dark" ? "#fff" : "#0B0F14" }}
+          style={{ color: textOn === "dark" ? "#fff" : "#16150F" }}
         >
           {hex}
         </span>
@@ -67,33 +67,34 @@ export default function DesignSystemPage() {
         </p>
         <h1 className="text-h1 font-bold">Design system</h1>
         <p className="text-body text-ink-secondary max-w-[34em]">
-          Every token, contrast ratio, and component state used across The Global, rendered here so
-          it can be audited before pages are built on top of it.
+          &quot;Ink &amp; Brass&quot; — every token, contrast ratio, and component state used
+          across The Global, rendered here so it can be audited before pages are built on top of
+          it.
         </p>
       </header>
 
       <section className="space-y-6">
         <h2 className="text-h2 font-bold">Colour — neutral foundation</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Swatch label="Canvas" hex="#FBFBF9" />
-          <Swatch label="Canvas sunken" hex="#F4F4F1" />
-          <Swatch label="Surface" hex="#FFFFFF" />
-          <Swatch label="Border interactive" hex="#8B908C" textOn="dark" />
-          <Swatch label="Ink" hex="#0B0F14" textOn="dark" />
-          <Swatch label="Ink secondary" hex="#454C56" textOn="dark" />
-          <Swatch label="Ink tertiary" hex="#5E6673" textOn="dark" />
+          <Swatch label="Canvas (paper)" hex="#F5F1E8" />
+          <Swatch label="Canvas sunken (stone)" hex="#EAE4D6" />
+          <Swatch label="Surface" hex="#FAF6EC" />
+          <Swatch label="Border interactive" hex="#8B8477" textOn="dark" />
+          <Swatch label="Ink" hex="#16150F" textOn="dark" />
+          <Swatch label="Ink secondary" hex="#4A473D" textOn="dark" />
+          <Swatch label="Ink tertiary" hex="#6B6759" textOn="dark" />
         </div>
       </section>
 
       <section className="space-y-6">
-        <h2 className="text-h2 font-bold">Colour — Meridian Navy &amp; Brass</h2>
+        <h2 className="text-h2 font-bold">Colour — Ink &amp; Brass</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Swatch label="Navy 900" hex="#0A1F33" textOn="dark" />
-          <Swatch label="Navy 800 — primary brand" hex="#0E2A47" textOn="dark" />
-          <Swatch label="Navy 700 — hover" hex="#143A5E" textOn="dark" />
-          <Swatch label="Navy 600 — focus/link" hex="#1A4A78" textOn="dark" />
-          <Swatch label="Brass — non-text only" hex="#B68A35" />
-          <Swatch label="Brass text (5.11:1)" hex="#8A6520" textOn="dark" />
+          <Swatch label="Ink 900 — deepest full-bleed" hex="#0E0D0A" textOn="dark" />
+          <Swatch label="Ink 800 — primary brand" hex="#16150F" textOn="dark" />
+          <Swatch label="Ink 700 — hover" hex="#242019" textOn="dark" />
+          <Swatch label="Astral glow 600 — focus/link" hex="#5C8AA3" textOn="dark" />
+          <Swatch label="Brass — non-text only" hex="#9C7A4F" />
+          <Swatch label="Brass text (5.4:1)" hex="#6B4F2E" textOn="dark" />
         </div>
       </section>
 
@@ -111,7 +112,7 @@ export default function DesignSystemPage() {
             </p>
             <p className="text-body">
               <a href="#" style={{ color: "var(--partner-text)" }} className="underline">
-                Astral-coloured link (6.49:1)
+                Astral-coloured link
               </a>
             </p>
           </div>
@@ -121,7 +122,7 @@ export default function DesignSystemPage() {
             </p>
             <p className="text-body">
               <a href="#" style={{ color: "var(--partner-text)" }} className="underline">
-                Somany-coloured link (6.49:1)
+                Somany-coloured link
               </a>
             </p>
           </div>
@@ -145,7 +146,7 @@ export default function DesignSystemPage() {
                 const ratio = contrastRatio(row.hex, row.bg);
                 const { label, pass } = ratioLabel(ratio);
                 return (
-                  <tr key={row.token} className="odd:bg-[#FAFAF8]">
+                  <tr key={row.token} className="odd:bg-surface">
                     <td className="p-3 border-b border-hairline">{row.token}</td>
                     <td className="p-3 border-b border-hairline tabular">{label}</td>
                     <td className="p-3 border-b border-hairline">
@@ -176,7 +177,7 @@ export default function DesignSystemPage() {
             </thead>
             <tbody>
               {typeScale.map((row) => (
-                <tr key={row.role} className="odd:bg-[#FAFAF8]">
+                <tr key={row.role} className="odd:bg-surface">
                   <td className="p-3 border-b border-hairline">{row.role}</td>
                   <td className="p-3 border-b border-hairline tabular">{row.mobile}</td>
                   <td className="p-3 border-b border-hairline tabular">{row.desktop}</td>
@@ -188,6 +189,8 @@ export default function DesignSystemPage() {
         </div>
         <p className="text-legal text-ink-tertiary">
           Body floor is 18px on mobile — nothing on the site, including the footer and legal line, is smaller.
+          Kept at the original accessible sizing even though the reference mockup this palette was
+          adapted from runs 13–15px body text.
         </p>
       </section>
 

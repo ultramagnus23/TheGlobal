@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { manrope, inter, ibmPlexSans, notoSansDevanagari } from "@/lib/fonts";
+import { fraunces, inter, ibmPlexSans, notoSansDevanagari } from "@/lib/fonts";
 import { facts } from "@/content/facts";
 import { Header } from "@/components/Header";
 import { MobileActionBar } from "@/components/MobileActionBar";
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${inter.variable} ${ibmPlexSans.variable} ${notoSansDevanagari.variable} h-full`}
+      className={`${fraunces.variable} ${inter.variable} ${ibmPlexSans.variable} ${notoSansDevanagari.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">
         {buildSiteJsonLd().map((entry, i) => (
