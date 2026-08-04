@@ -33,6 +33,20 @@ export function ColorRevealSection({ from, to, children, className }: ColorRevea
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // Under reduced motion, `.reveal` (globals.css) forces content to its
+    // final opacity immediately via `!important`, ignoring the `is-visible`
+    // gate below — but this component's `visible` state (and therefore the
+    // background colour) was still waiting on a real scroll intersection.
+    // That mismatch let text render at full opacity against the `from`
+    // colour before the section ever scrolled into view, defeating the
+    // "content never shown against a mid-crossfade background" invariant
+    // this component documents. Settling immediately here keeps that
+    // invariant true under reduced motion too.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(

@@ -8,14 +8,16 @@ export function ProjectScreen({ project }: { project: Project }) {
       href={`/projects/${project.slug}`}
       className="group relative flex min-h-[420px] md:min-h-[520px] items-end p-8 md:p-12 border-t border-hairline overflow-hidden"
     >
-      <PlaceholderImage
-        label={project.range}
-        alt={`${project.name} in ${project.city}`}
-        src={project.image}
-        dark
-        zoomOnHover
-        className="absolute inset-0"
-      />
+      <div className="absolute inset-0">
+        <PlaceholderImage
+          label={project.range}
+          alt={`${project.name} in ${project.city}`}
+          src={project.image}
+          dark
+          zoomOnHover
+          className="h-full w-full"
+        />
+      </div>
       <div className="absolute inset-0 bg-navy-900/55" aria-hidden="true" />
       <div className="relative z-10 flex flex-wrap items-end justify-between gap-6 w-full">
         <div>

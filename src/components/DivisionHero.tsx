@@ -24,14 +24,9 @@ export function DivisionHero({
 }: DivisionHeroProps) {
   return (
     <section className="relative min-h-[520px] flex items-center justify-center overflow-hidden">
-      <PlaceholderImage
-        label={imageLabel}
-        alt={imageAlt}
-        src={imageSrc}
-        dark
-        priority
-        className="absolute inset-0"
-      />
+      <div className="absolute inset-0">
+        <PlaceholderImage label={imageLabel} alt={imageAlt} src={imageSrc} dark priority className="h-full w-full" />
+      </div>
       <div className="absolute inset-0 bg-navy-900/60" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-3xl px-6 py-20 text-center text-white space-y-5">
         <p
