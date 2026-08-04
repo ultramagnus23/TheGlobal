@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { DownloadCard } from "@/components/DownloadCard";
+import { StaggerReveal } from "@/components/StaggerReveal";
+import { ColorRevealSection } from "@/components/ColorRevealSection";
 import { downloads } from "@/content/downloads";
 import { canonical } from "@/lib/seo";
 
@@ -32,18 +34,20 @@ export default function DownloadsPage() {
             </p>
           </div>
 
-          {groups.map((group) => {
+          {groups.map((group, i) => {
             const items = downloads.filter((d) => d.brand === group.brand);
             if (items.length === 0) return null;
             return (
-              <div key={group.brand} className="space-y-4">
-                <h2 className="text-h3 font-semibold text-ink">{group.label}</h2>
-                <div className="grid grid-cols-1 gap-4">
-                  {items.map((item) => (
-                    <DownloadCard key={item.href} title={item.title} fileType="PDF" href={item.href} />
-                  ))}
+              <ColorRevealSection key={group.brand} from="var(--canvas)" to={i % 2 ? "var(--canvas-sunken)" : "var(--canvas)"}>
+                <div className="space-y-4">
+                  <h2 className="text-h3 font-semibold text-ink">{group.label}</h2>
+                  <StaggerReveal className="grid grid-cols-1 gap-4" step={90}>
+                    {items.map((item) => (
+                      <DownloadCard key={item.href} title={item.title} fileType="PDF" href={item.href} />
+                    ))}
+                  </StaggerReveal>
                 </div>
-              </div>
+              </ColorRevealSection>
             );
           })}
         </div>

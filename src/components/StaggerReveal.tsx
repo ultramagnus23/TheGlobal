@@ -1,6 +1,6 @@
 "use client";
 
-import { Children, useEffect, useRef, useState, type ReactNode } from "react";
+import { Children, cloneElement, isValidElement, useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 interface StaggerRevealProps {
@@ -12,10 +12,14 @@ interface StaggerRevealProps {
 }
 
 /**
- * Wraps a list of sibling items and reveals them in sequence as the group
- * scrolls into view, instead of all at once — same transform/opacity
- * language as the global `.reveal` class, just staggered per item so rows
- * read as a deliberate cascade rather than a single block appearing.
+ * Reveals a list of sibling items in sequence as the group scrolls into
+ * view, instead of all at once — same transform/opacity language as the
+ * global `.reveal` class, just staggered per item so rows read as a
+ * deliberate cascade. Clones the reveal class/delay directly onto each
+ * child rather than wrapping it in an extra `<div>`, so this stays safe to
+ * use with `as="ul"` around `<li>` children (a wrapper div there would be
+ * invalid HTML and break list semantics for screen readers) and doesn't
+ * add a spurious cell to CSS grid layouts.
  * Fires once via IntersectionObserver; fully inert under reduced motion
  * (handled by the shared `.reveal` rules in globals.css).
  */
@@ -44,15 +48,16 @@ export function StaggerReveal({ children, className, step = 70, as = "div" }: St
 
   return (
     <Tag ref={ref as never} className={className}>
-      {items.map((child, i) => (
-        <div
-          key={i}
-          className={cn("reveal", visible && "is-visible")}
-          style={{ transitionDelay: visible ? `${i * step}ms` : "0ms" }}
-        >
-          {child}
-        </div>
-      ))}
+      {items.map((child, i) => {
+        if (!isValidElement<{ className?: string; style?: React.CSSProperties }>(child)) return child;
+        return cloneElement(child, {
+          className: cn(child.props.className, "reveal", visible && "is-visible"),
+          style: {
+            ...child.props.style,
+            transitionDelay: visible ? `${i * step}ms` : "0ms",
+          },
+        });
+      })}
     </Tag>
   );
 }

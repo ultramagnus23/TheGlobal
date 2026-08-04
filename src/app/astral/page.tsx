@@ -5,6 +5,7 @@ import { CategoryShowcase } from "@/components/CategoryShowcase";
 import { DownloadCard } from "@/components/DownloadCard";
 import { DivisionContactBlock } from "@/components/DivisionContactBlock";
 import { ColorRevealSection } from "@/components/ColorRevealSection";
+import { StaggerReveal } from "@/components/StaggerReveal";
 import { astralCategories, astralWhyBuy } from "@/content/divisions";
 import { facts } from "@/content/facts";
 import { canonical } from "@/lib/seo";
@@ -51,14 +52,14 @@ export default function AstralPage() {
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-3xl px-6">
             <h2 className="text-h2 font-bold text-center mb-12">Why buy Astral from The Global</h2>
-            <ul className="space-y-6">
+            <StaggerReveal as="ul" className="space-y-6" step={90}>
               {astralWhyBuy.map((point) => (
                 <li key={point} className="flex gap-3 text-body text-ink-secondary">
                   <span className="text-success shrink-0" aria-hidden="true">✓</span>
                   {point}
                 </li>
               ))}
-            </ul>
+            </StaggerReveal>
           </div>
         </section>
       </ColorRevealSection>
@@ -67,11 +68,11 @@ export default function AstralPage() {
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-3xl px-6">
             <h2 className="text-h2 font-bold text-center mb-12">Downloads</h2>
-            <div className="grid grid-cols-1 gap-4">
+            <StaggerReveal className="grid grid-cols-1 gap-4" step={90}>
               <DownloadCard title="Astral Product Catalogue" fileType="PDF" href="/downloads/astral-catalogue.pdf" />
               <DownloadCard title="Astral Price List" fileType="PDF" href="/downloads/astral-price-list.pdf" />
               <DownloadCard title="Global Sales — Astral Authorisation Letter" fileType="PDF" href="/downloads/astral-authorisation.pdf" />
-            </div>
+            </StaggerReveal>
           </div>
         </section>
       </ColorRevealSection>

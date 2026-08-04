@@ -27,19 +27,22 @@ npm run build
 ## 2. Environment variables
 
 Create a `.env.local` file in the project root (it's git-ignored, never commit it) for the
-enquiry form's email delivery. None of these are required for the site to run — until they're
-set, enquiry submissions are only logged to the server console.
+enquiry form's email delivery. Neither is required for the site to run — until both are set,
+enquiry submissions are still validated and accepted, just logged to the server console instead
+of emailed.
 
 ```bash
-# Pick ONE email provider and wire it into src/app/actions/enquiry.ts (see the TODO comment there):
 RESEND_API_KEY=
-# — or —
-SMTP_HOST=
-SMTP_PORT=
-SMTP_USER=
-SMTP_PASSWORD=
 ENQUIRY_NOTIFICATION_EMAIL=
+# Optional — defaults to Resend's onboarding sender if unset. Must be a domain verified in
+# your Resend account once you're past their sandbox sender.
+ENQUIRY_FROM_EMAIL=
 ```
+
+Sign up at [resend.com](https://resend.com), create an API key, and set `ENQUIRY_NOTIFICATION_EMAIL`
+to the inbox that should receive enquiries. `src/app/actions/enquiry.ts` sends via Resend's REST
+API directly (no SDK dependency) and falls back to the console log if delivery fails for any
+reason, so a bad key never breaks the form for the visitor.
 
 ## 3. Changing a phone number, WhatsApp number, or any business fact
 

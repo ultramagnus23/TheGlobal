@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ProjectPlate } from "@/components/ProjectPlate";
+import { StaggerReveal } from "@/components/StaggerReveal";
 import { projects } from "@/content/projects";
 import { canonical } from "@/lib/seo";
 
@@ -23,11 +24,11 @@ export default function ProjectsIndexPage() {
             Real projects, captioned honestly by the product range we supplied — not a client list
             we cannot verify.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <StaggerReveal className="grid grid-cols-1 md:grid-cols-3 gap-8" step={90}>
             {projects.map((project) => (
               <ProjectPlate key={project.slug} project={project} />
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
     </main>

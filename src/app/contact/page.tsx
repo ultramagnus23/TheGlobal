@@ -6,6 +6,7 @@ import { facts } from "@/content/facts";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { canonical } from "@/lib/seo";
 import { FaqSection } from "@/components/FaqSection";
+import { StaggerReveal } from "@/components/StaggerReveal";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -32,7 +33,7 @@ export default function ContactPage() {
               <EnquiryForm />
             </div>
 
-            <div className="space-y-10">
+            <StaggerReveal className="space-y-10" step={120}>
               {[facts.entities.sales, facts.entities.marketing].map((entity) => {
                 const whatsappHref = buildWhatsAppLink(
                   entity.whatsapp,
@@ -74,7 +75,7 @@ export default function ContactPage() {
               })}
 
               <p className="text-body text-ink-secondary border-t border-border pt-6">{facts.hours}</p>
-            </div>
+            </StaggerReveal>
           </div>
         </div>
       </section>

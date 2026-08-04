@@ -7,6 +7,8 @@ import { DownloadCard } from "@/components/DownloadCard";
 import { Chip } from "@/components/Chip";
 import { ProductCard } from "@/components/ProductCard";
 import { Button } from "@/components/Button";
+import { ColorRevealSection } from "@/components/ColorRevealSection";
+import { StaggerReveal } from "@/components/StaggerReveal";
 import { findCategory } from "@/content/divisions";
 import { products, getProduct, getProductsByCategory } from "@/content/products";
 import { facts } from "@/content/facts";
@@ -136,37 +138,43 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-      <section className="py-12 md:py-20 bg-canvas-sunken">
-        <div className="mx-auto max-w-4xl px-6">
-          <h2 className="text-h2 font-bold mb-8">Technical specification</h2>
-          <SpecTable rows={product.specs} />
-        </div>
-      </section>
-
-      {product.downloads.length > 0 ? (
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas-sunken)">
         <section className="py-12 md:py-20">
           <div className="mx-auto max-w-4xl px-6">
-            <h2 className="text-h2 font-bold mb-8">Downloads</h2>
-            <div className="grid grid-cols-1 gap-4">
-              {product.downloads.map((d) => (
-                <DownloadCard key={d.href} title={d.title} fileType="PDF" href={d.href} />
-              ))}
-            </div>
+            <h2 className="text-h2 font-bold mb-8">Technical specification</h2>
+            <SpecTable rows={product.specs} />
           </div>
         </section>
+      </ColorRevealSection>
+
+      {product.downloads.length > 0 ? (
+        <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas)">
+          <section className="py-12 md:py-20">
+            <div className="mx-auto max-w-4xl px-6">
+              <h2 className="text-h2 font-bold mb-8">Downloads</h2>
+              <StaggerReveal className="grid grid-cols-1 gap-4">
+                {product.downloads.map((d) => (
+                  <DownloadCard key={d.href} title={d.title} fileType="PDF" href={d.href} />
+                ))}
+              </StaggerReveal>
+            </div>
+          </section>
+        </ColorRevealSection>
       ) : null}
 
       {related.length > 0 ? (
-        <section className="py-12 md:py-20 bg-canvas-sunken">
-          <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-h2 font-bold mb-8">Related products</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((p) => (
-                <ProductCard key={p.slug} product={p} />
-              ))}
+        <ColorRevealSection from="var(--canvas)" to="var(--canvas-sunken)">
+          <section className="py-12 md:py-20">
+            <div className="mx-auto max-w-6xl px-6">
+              <h2 className="text-h2 font-bold mb-8">Related products</h2>
+              <StaggerReveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" step={70}>
+                {related.map((p) => (
+                  <ProductCard key={p.slug} product={p} />
+                ))}
+              </StaggerReveal>
             </div>
-          </div>
-        </section>
+          </section>
+        </ColorRevealSection>
       ) : null}
     </main>
   );

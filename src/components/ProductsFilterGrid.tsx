@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
+import { StaggerReveal } from "@/components/StaggerReveal";
 import { products } from "@/content/products";
 import { astralCategories, somanyCategories } from "@/content/divisions";
 import { cn } from "@/lib/cn";
@@ -47,11 +48,11 @@ export function ProductsFilterGrid() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <StaggerReveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" step={60}>
         {visible.map((product) => (
           <ProductCard key={product.slug} product={product} />
         ))}
-      </div>
+      </StaggerReveal>
     </>
   );
 }
