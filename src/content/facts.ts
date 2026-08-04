@@ -2,9 +2,14 @@ import { z } from "zod";
 
 /**
  * Single source of truth for every verifiable business fact used across the
- * site. Nothing here is invented — where a real figure is not yet supplied,
- * the value is a clearly named `{{TOKEN}}` placeholder. Fill these in once;
- * every page that imports `facts` picks up the change automatically.
+ * site. Being superseded by content/company.ts (the typed Entity schema
+ * from the full-rebuild brief) — until the migration lands, this still
+ * feeds the 25 existing consumers.
+ *
+ * DEMO DATA NOTICE: every value below marked DEMO is placeholder content
+ * for design/engineering review only — clearly fake but correctly
+ * formatted so it passes scripts/validate-content.ts. See IS_DEMO_DATA in
+ * content/company.ts. None of it is real and none of it may ship.
  */
 
 const factsSchema = z.object({
@@ -61,26 +66,26 @@ export const facts = factsSchema.parse({
   entities: {
     sales: {
       name: "Global Sales",
-      mandate: "Authorised Astral Distributor — pipes, fittings, plumbing, water & drainage systems",
-      gstin: "{{GLOBAL_SALES_GSTIN}}",
-      address: "{{GLOBAL_SALES_REGISTERED_ADDRESS}}, Jaipur, Rajasthan",
-      phone: "{{GLOBAL_SALES_PHONE}}",
-      whatsapp: "{{GLOBAL_SALES_WHATSAPP_NUMBER}}",
+      mandate: "Authorised Astral Distributor: pipes, fittings, plumbing, water & drainage systems",
+      gstin: "08DEMOX1234A1Z5", // DEMO — not a real GSTIN
+      address: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+      phone: "+919000000001", // DEMO
+      whatsapp: "919000000002", // DEMO
     },
     marketing: {
       name: "Global Marketing",
-      mandate: "Exclusive Authorised Somany Distributor for Rajasthan — tiles, sanitaryware, bath fittings",
-      gstin: "{{GLOBAL_MARKETING_GSTIN}}",
-      address: "{{GLOBAL_MARKETING_REGISTERED_ADDRESS}}, Jaipur, Rajasthan",
-      phone: "{{GLOBAL_MARKETING_PHONE}}",
-      whatsapp: "{{GLOBAL_MARKETING_WHATSAPP_NUMBER}}",
+      mandate: "Exclusive Authorised Somany Distributor for Rajasthan: tiles, sanitaryware, bath fittings",
+      gstin: "08DEMOY5678B2Z6", // DEMO — not a real GSTIN
+      address: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+      phone: "+919000000003", // DEMO
+      whatsapp: "919000000004", // DEMO
     },
   },
   hours: "Mon–Sat, 10:00–19:00 IST",
   primaryContact: {
-    phoneDisplay: "{{PRIMARY_PHONE_DISPLAY}}",
-    phoneHref: "tel:+91{{PRIMARY_PHONE_DIGITS}}",
-    whatsappNumber: "91{{PRIMARY_WHATSAPP_DIGITS}}",
+    phoneDisplay: "+91 90000 00000", // DEMO
+    phoneHref: "tel:+919000000000",
+    whatsappNumber: "919000000000", // DEMO
   },
   claims: [
     "Exclusive Authorised Somany distributor for the state of Rajasthan",
@@ -96,7 +101,7 @@ export const facts = factsSchema.parse({
   ],
   capability: {
     years: "18+",
-    warehouseSqft: "{{WAREHOUSE_SQFT}}",
+    warehouseSqft: "50,000 sq ft (DEMO)",
     districtsServed: "33",
     dispatch: "Pan-India",
   },

@@ -24,7 +24,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-6xl px-6">
           <h1 className="text-h1 font-bold mb-4">Call us. We answer.</h1>
           <p className="text-lead text-ink-secondary max-w-[34em] mb-12">
-            Send an enquiry below, or call either entity directly — we hold stock and answer the
+            Send an enquiry below, or call either entity directly. We hold stock and answer the
             phone during business hours.
           </p>
 

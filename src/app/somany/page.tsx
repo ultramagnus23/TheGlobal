@@ -11,7 +11,7 @@ import { facts } from "@/content/facts";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Somany Tiles Distributor — Rajasthan, Exclusive Authorisation",
+  title: "Somany Tiles Distributor, Rajasthan, Exclusive Authorisation",
   description:
     "Exclusive Authorised Somany distributor for Rajasthan. Floor tiles, wall tiles, large format slabs, sanitaryware and bath fittings from Jaipur warehouse stock.",
   alternates: { canonical: canonical("/somany") },
@@ -23,7 +23,7 @@ export default function SomanyPage() {
       <DivisionHero
         eyebrow="Global Marketing · Exclusive Authorised Somany Distributor"
         heading="Somany tiles & sanitaryware."
-        sub="Floor tiles, wall tiles, slabs, sanitaryware and bath fittings — the full range, in stock, for Rajasthan."
+        sub="Floor tiles, wall tiles, slabs, sanitaryware and bath fittings: the full range, in stock, for Rajasthan."
         imageLabel="Somany large-format slab on sweep"
         imageAlt="Stack of large-format marble-look tile slabs in a showroom"
         imageSrc="/images/real/somany-tiles-hero.webp"
@@ -33,9 +33,9 @@ export default function SomanyPage() {
 
       <ColorRevealSection from="var(--navy-900)" to="var(--canvas-sunken)">
         <AuthorisationBlock
-          eyebrow="Exclusive Authorisation — Rajasthan"
+          eyebrow="Exclusive Authorisation, Rajasthan"
           statement="The only exclusive Somany distributor in the state."
-          detail="Global Marketing holds the exclusive Authorised Somany Distributor mandate for the state of Rajasthan — no other distributor carries this state-wide authorisation."
+          detail="Global Marketing holds the exclusive Authorised Somany Distributor mandate for the state of Rajasthan. No other distributor carries this state-wide authorisation."
         />
       </ColorRevealSection>
 
@@ -72,7 +72,7 @@ export default function SomanyPage() {
               <DownloadCard title="Somany Product Catalogue" fileType="PDF" href="/downloads/somany-catalogue.pdf" />
               <DownloadCard title="Somany Price List" fileType="PDF" href="/downloads/somany-price-list.pdf" />
               <DownloadCard
-                title="Global Marketing — Somany Exclusive Authorisation Letter"
+                title="Global Marketing: Somany Exclusive Authorisation Letter"
                 fileType="PDF"
                 href="/downloads/somany-authorisation.pdf"
               />

@@ -13,13 +13,13 @@ const stages = [
   {
     num: "01",
     title: "The structure.",
-    body: "Every building starts as geometry — a shell, a set of floors, a roof. Before a single material is chosen, the building already knows its shape.",
+    body: "Every building starts as geometry: a shell, a set of floors, a roof. Before a single material is chosen, the building already knows its shape.",
     from: 0,
   },
   {
     num: "02",
     title: "Water & drainage.",
-    body: "CPVC, PVC and SWR systems thread through every wall — the part no one sees, and the part that can least afford to fail.",
+    body: "CPVC, PVC and SWR systems thread through every wall: the part no one sees, and the part that can least afford to fail.",
     powered: { label: "Powered by Astral", brand: "astral" as const },
     from: 0.34,
   },

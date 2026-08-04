@@ -7,15 +7,15 @@ import { downloads } from "@/content/downloads";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Downloads — Catalogues, Price Lists & Authorisation Letters",
+  title: "Downloads: Catalogues, Price Lists & Authorisation Letters",
   description:
     "Download Astral and Somany catalogues, price lists, and The Global's authorisation and GST documentation.",
   alternates: { canonical: canonical("/downloads") },
 };
 
 const groups = [
-  { brand: "somany" as const, label: "Somany — Global Marketing" },
-  { brand: "astral" as const, label: "Astral — Global Sales" },
+  { brand: "somany" as const, label: "Somany, Global Marketing" },
+  { brand: "astral" as const, label: "Astral, Global Sales" },
   { brand: "company" as const, label: "Company documentation" },
 ];
 

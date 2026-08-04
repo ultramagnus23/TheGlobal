@@ -60,7 +60,7 @@ export default async function ProductCategoryPage({
             </StaggerReveal>
           ) : (
             <p className="text-body text-ink-secondary">
-              Full range available — call us for current stock and pricing on this category.
+              Full range available. Call us for current stock and pricing on this category.
             </p>
           )}
         </div>

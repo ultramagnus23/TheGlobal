@@ -36,7 +36,7 @@ export function findCategory(slug: string): { category: Category; brand: "astral
 export const allCategories = [...astralCategories, ...somanyCategories];
 
 export const astralWhyBuy = [
-  "Full range held in depth at our Jaipur warehouse — not ordered in after your enquiry.",
+  "Full range held in depth at our Jaipur warehouse, not ordered in after your enquiry.",
   "Site-wise dispatch, so material arrives in step with your construction schedule.",
   "Project pricing for bulk and phased orders, agreed once and honoured throughout.",
 ];

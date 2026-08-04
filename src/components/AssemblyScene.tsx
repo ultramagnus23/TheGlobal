@@ -34,7 +34,10 @@ export function AssemblyScene({ progressRef }: { progressRef: React.RefObject<nu
     function size() {
       const w = mount!.clientWidth;
       const h = mount!.clientHeight;
-      renderer.setSize(w, h, false);
+      // updateStyle=true: without it the canvas's CSS box renders at its raw
+      // device-pixel width/height rather than the logical size, overflowing
+      // the viewport on any DPR > 1 device (confirmed on mobile).
+      renderer.setSize(w, h, true);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
     }

@@ -35,7 +35,7 @@ export function DownloadCard({ title, fileType, href, className, style }: Downlo
         <div>
           <p className="text-h3 font-semibold text-ink-secondary">{title}</p>
           <p className="text-base text-ink-tertiary mt-1">
-            Not posted online yet —{" "}
+            Not posted online yet,{" "}
             <a href={facts.primaryContact.phoneHref} className="underline underline-offset-2 text-ink-secondary">
               call us
             </a>{" "}

@@ -64,7 +64,7 @@ export function BrandSplitFull() {
         brand="somany"
         entityName="Global Marketing · Exclusive Authorised Distributor"
         heading="Somany"
-        description="Tiles, sanitaryware and bath fittings — the surfaces and finishes that decide how a space actually feels to live in."
+        description="Tiles, sanitaryware and bath fittings: the surfaces and finishes that decide how a space actually feels to live in."
         tags={["Tiles", "Bathware", "Sanitaryware", "Building Solutions"]}
         href="/somany"
         image="/images/real/somany-tiles-hero.webp"
@@ -73,7 +73,7 @@ export function BrandSplitFull() {
         brand="astral"
         entityName="Global Sales · Trusted Distribution Partner"
         heading="Astral"
-        description="CPVC, PVC, SWR and water tanks — the systems that carry water through a building without anyone thinking twice about it."
+        description="CPVC, PVC, SWR and water tanks: the systems that carry water through a building without anyone thinking twice about it."
         tags={["Pipes", "Fittings", "Tanks", "Adhesives"]}
         href="/astral"
         image="/images/real/astral-cpvc.jpg"

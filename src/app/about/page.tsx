@@ -56,7 +56,7 @@ export default function AboutPage() {
             <div className="space-y-4">
               <h2 className="text-h2 font-bold">The warehouse</h2>
               <p className="text-body text-ink-secondary max-w-[34em]">
-                Our Jaipur warehouse holds standing inventory across both divisions — {facts.capability.warehouseSqft} sq ft, racked and ready to dispatch, so a dealer or builder anywhere in Rajasthan gets material this week rather than next month.
+                Our Jaipur warehouse holds standing inventory across both divisions: {facts.capability.warehouseSqft} sq ft, racked and ready to dispatch, so a dealer or builder anywhere in Rajasthan gets material this week rather than next month.
               </p>
             </div>
           </div>

@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { Hero } from "@/components/Hero";
+import { ForgeSequence } from "@/components/ForgeSequence";
 import { CredentialBand } from "@/components/CredentialBand";
 import { AssemblyStory } from "@/components/AssemblyStory";
 import { StatementSection } from "@/components/StatementSection";
 import { TimelineSection } from "@/components/TimelineSection";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
-import { ScaleSection } from "@/components/ScaleSection";
-import { BrandSplitFull } from "@/components/BrandSplitFull";
+import { StockPulse } from "@/components/StockPulse";
+import { CollisionSection } from "@/components/CollisionSection";
 import { ProjectScreen } from "@/components/ProjectScreen";
 import { LogisticsSection } from "@/components/LogisticsSection";
 import { AudienceRow } from "@/components/AudienceRow";
@@ -21,16 +21,33 @@ import { facts } from "@/content/facts";
 export default function Home() {
   return (
     <main id="main-content">
-      {/* 1. Hero */}
-      <Hero />
+      {/* 1. Hero: The Forge Sequence */}
+      <ForgeSequence />
 
       {/* 2. Credential band */}
       <ColorRevealSection from="var(--navy-900)" to="var(--canvas-sunken)">
         <CredentialBand />
       </ColorRevealSection>
 
-      {/* 3. Assembly story — from foundation to finish */}
+      {/* 3. Who we supply: surfaced early so each of the five buyer types
+          reaches their next step before the editorial brand story, not after it */}
       <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas)">
+        <section className="py-24 md:py-32">
+          <div className="mx-auto max-w-3xl px-6">
+            <h2 className="font-display text-h2 font-semibold text-ink text-center mb-12">
+              Who we supply
+            </h2>
+            <StaggerReveal>
+              {audiences.map((audience) => (
+                <AudienceRow key={audience.label} audience={audience} />
+              ))}
+            </StaggerReveal>
+          </div>
+        </section>
+      </ColorRevealSection>
+
+      {/* 4. Assembly story: from foundation to finish */}
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-6xl px-6">
             <div className="max-w-[42ch] mb-16">
@@ -46,12 +63,12 @@ export default function Home() {
         </section>
       </ColorRevealSection>
 
-      {/* 4. Editorial statement */}
+      {/* 5. Editorial statement */}
       <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
         <StatementSection />
       </ColorRevealSection>
 
-      {/* 5. Who we are / timeline */}
+      {/* 6. Who we are / timeline */}
       <ColorRevealSection from="var(--navy-900)" to="var(--canvas)">
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-5xl px-6">
@@ -75,26 +92,26 @@ export default function Home() {
         </section>
       </ColorRevealSection>
 
-      {/* 5b. What reliability means here */}
+      {/* 6b. What reliability means here */}
       <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
         <CareSection />
       </ColorRevealSection>
 
-      {/* 6. Scale */}
-      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
+      {/* 7. The Stock Pulse */}
+      <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
         <section className="py-24 md:py-32">
-          <div className="mx-auto max-w-4xl px-6">
-            <ScaleSection />
+          <div className="mx-auto max-w-5xl px-6">
+            <StockPulse />
           </div>
         </section>
       </ColorRevealSection>
 
-      {/* 7. Brand split */}
-      <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
-        <BrandSplitFull />
+      {/* 8. The Collision: Astral x Somany */}
+      <ColorRevealSection from="var(--navy-900)" to="var(--navy-900)">
+        <CollisionSection />
       </ColorRevealSection>
 
-      {/* 8. Projects */}
+      {/* 9. Projects */}
       <ColorRevealSection from="var(--navy-900)" to="var(--canvas)">
         <section className="pt-24 md:pt-32">
           <div className="mx-auto max-w-6xl px-6 pb-16">
@@ -119,7 +136,7 @@ export default function Home() {
         </section>
       </ColorRevealSection>
 
-      {/* 9. Logistics */}
+      {/* 10. Logistics */}
       <ColorRevealSection from="var(--canvas)" to="var(--canvas-sunken)">
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-5xl px-6">
@@ -134,24 +151,8 @@ export default function Home() {
         </section>
       </ColorRevealSection>
 
-      {/* 10. Who we supply */}
-      <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas)">
-        <section className="py-24 md:py-32">
-          <div className="mx-auto max-w-3xl px-6">
-            <h2 className="font-display text-h2 font-semibold text-ink text-center mb-12">
-              Who we supply
-            </h2>
-            <StaggerReveal>
-              {audiences.map((audience) => (
-                <AudienceRow key={audience.label} audience={audience} />
-              ))}
-            </StaggerReveal>
-          </div>
-        </section>
-      </ColorRevealSection>
-
       {/* 11. Contact */}
-      <ColorRevealSection from="var(--canvas)" to="var(--canvas-sunken)">
+      <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas-sunken)">
         <ContactSection />
       </ColorRevealSection>
     </main>
