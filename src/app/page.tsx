@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { Hero } from "@/components/Hero";
+import { ForgeSequence } from "@/components/ForgeSequence";
 import { CredentialBand } from "@/components/CredentialBand";
 import { AssemblyStory } from "@/components/AssemblyStory";
 import { StatementSection } from "@/components/StatementSection";
 import { TimelineSection } from "@/components/TimelineSection";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
-import { ScaleSection } from "@/components/ScaleSection";
-import { BrandSplitFull } from "@/components/BrandSplitFull";
+import { StockPulse } from "@/components/StockPulse";
+import { CollisionSection } from "@/components/CollisionSection";
 import { ProjectScreen } from "@/components/ProjectScreen";
 import { LogisticsSection } from "@/components/LogisticsSection";
 import { AudienceRow } from "@/components/AudienceRow";
@@ -21,8 +21,8 @@ import { facts } from "@/content/facts";
 export default function Home() {
   return (
     <main id="main-content">
-      {/* 1. Hero */}
-      <Hero />
+      {/* 1. Hero: The Forge Sequence */}
+      <ForgeSequence />
 
       {/* 2. Credential band */}
       <ColorRevealSection from="var(--navy-900)" to="var(--canvas-sunken)">
@@ -97,18 +97,18 @@ export default function Home() {
         <CareSection />
       </ColorRevealSection>
 
-      {/* 7. Scale */}
-      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
+      {/* 7. The Stock Pulse */}
+      <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
         <section className="py-24 md:py-32">
-          <div className="mx-auto max-w-4xl px-6">
-            <ScaleSection />
+          <div className="mx-auto max-w-5xl px-6">
+            <StockPulse />
           </div>
         </section>
       </ColorRevealSection>
 
-      {/* 8. Brand split */}
-      <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
-        <BrandSplitFull />
+      {/* 8. The Collision: Astral x Somany */}
+      <ColorRevealSection from="var(--navy-900)" to="var(--navy-900)">
+        <CollisionSection />
       </ColorRevealSection>
 
       {/* 9. Projects */}
