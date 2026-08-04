@@ -25,7 +25,7 @@ export default function SomanyPage() {
         sub="Floor tiles, wall tiles, slabs, sanitaryware and bath fittings — the full range, in stock, for Rajasthan."
         imageLabel="Somany large-format slab on sweep"
         imageAlt="Stack of large-format marble-look tile slabs in a showroom"
-        imageSrc="/images/generated/somany-hero.webp"
+        imageSrc="/images/real/somany-tiles-hero.webp"
         ctaHref="/contact"
         ctaLabel="Enquire Now"
       />

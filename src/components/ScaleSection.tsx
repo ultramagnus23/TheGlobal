@@ -1,4 +1,5 @@
 import { facts } from "@/content/facts";
+import { StaggerReveal } from "@/components/StaggerReveal";
 
 const rows = [
   {
@@ -21,7 +22,7 @@ const rows = [
 
 export function ScaleSection() {
   return (
-    <div className="flex flex-col">
+    <StaggerReveal className="flex flex-col" step={90}>
       {rows.map((row) => (
         <div
           key={row.label}
@@ -33,6 +34,6 @@ export function ScaleSection() {
           <span className="text-body text-ink-secondary text-right max-w-[26ch]">{row.label}</span>
         </div>
       ))}
-    </div>
+    </StaggerReveal>
   );
 }

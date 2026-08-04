@@ -48,6 +48,7 @@ export default async function ProjectDetailPage({
           <PlaceholderImage
             label={project.range}
             alt={`${project.name} in ${project.city}`}
+            src={project.image}
             className="aspect-[16/9] rounded-2xl"
           />
           <div>

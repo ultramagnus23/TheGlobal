@@ -224,3 +224,26 @@ table, .tabular {
 .prose-measure {
   max-width: 34em;
 }
+
+/* --- 2.7 Hero scroll cue --- */
+@keyframes scroll-cue-stem {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.001% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.scroll-cue-stem {
+  animation: scroll-cue-stem 2s ease infinite;
+}

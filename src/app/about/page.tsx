@@ -41,8 +41,9 @@ export default function AboutPage() {
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-5xl px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <PlaceholderImage
-            label="Jaipur warehouse racking"
-            alt="Racked inventory inside The Global's Jaipur warehouse"
+            label="Production and finishing floor"
+            alt="Materials being finished and prepared for dispatch"
+            src="/images/real/warehouse-sunset.webp"
             className="aspect-[4/3] rounded-2xl"
           />
           <div className="space-y-4">

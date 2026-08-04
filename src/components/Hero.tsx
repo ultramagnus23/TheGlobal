@@ -42,6 +42,14 @@ export function Hero() {
           Call {facts.primaryContact.phoneDisplay}
         </Button>
       </div>
+
+      <div
+        aria-hidden="true"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-white/50"
+      >
+        <span className="text-eyebrow uppercase tracking-[0.16em]">Scroll</span>
+        <span className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent scroll-cue-stem" />
+      </div>
     </section>
   );
 }
