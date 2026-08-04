@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Construction materials distribution — Astral pipes & Somany tiles, Jaipur, Rajasthan.",
     start_url: "/",
     display: "standalone",
-    background_color: "#FBFBF9",
-    theme_color: "#0E2A47",
+    background_color: "#F5F1E8",
+    theme_color: "#16150F",
     icons: [],
   };
 }

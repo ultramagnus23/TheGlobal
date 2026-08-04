@@ -39,7 +39,7 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 inset-x-0 z-50 h-16 md:h-[72px]",
-        "bg-[rgba(251,251,249,0.82)] backdrop-blur-xl",
+        "bg-[rgba(245, 241, 232,0.82)] backdrop-blur-xl",
         "border-b transition-[border-color] duration-200",
         scrolled ? "border-hairline" : "border-transparent"
       )}
@@ -106,7 +106,7 @@ export function Header() {
         <div
           id="mobile-nav-panel"
           ref={menuRef}
-          className="lg:hidden absolute inset-x-0 top-full bg-surface border-b border-hairline shadow-[0_8px_24px_rgba(11,15,20,0.08)]"
+          className="lg:hidden absolute inset-x-0 top-full bg-surface border-b border-hairline shadow-[0_8px_24px_rgba(19, 19, 15,0.08)]"
         >
           <nav aria-label="Mobile primary" className="flex flex-col p-4 gap-1">
             {NAV_ITEMS.map((item) => (
