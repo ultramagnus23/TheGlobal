@@ -37,8 +37,8 @@ export const entities: Record<"sales" | "marketing", Entity> = {
     brandPartner: "Astral",
     authorisationType: "Authorised Distributor (DEMO)",
     gstin: "08DEMOX1234A1Z5", // DEMO — not a real GSTIN
-    registeredAddress: "DEMO ADDRESS — Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
-    warehouseAddress: "DEMO ADDRESS — Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+    registeredAddress: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+    warehouseAddress: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
     geo: { lat: 26.7355, lng: 75.8189 }, // DEMO — approximate Sitapura industrial area, not a confirmed address
     phoneDisplay: "+91 90000 00001", // DEMO
     phoneE164: "+919000000001", // DEMO
@@ -51,8 +51,8 @@ export const entities: Record<"sales" | "marketing", Entity> = {
     brandPartner: "Somany",
     authorisationType: "Exclusive Authorised Distributor for Rajasthan (DEMO)",
     gstin: "08DEMOY5678B2Z6", // DEMO — not a real GSTIN
-    registeredAddress: "DEMO ADDRESS — Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
-    warehouseAddress: "DEMO ADDRESS — Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+    registeredAddress: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+    warehouseAddress: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
     geo: { lat: 26.7355, lng: 75.8189 }, // DEMO — approximate Sitapura industrial area, not a confirmed address
     phoneDisplay: "+91 90000 00003", // DEMO
     phoneE164: "+919000000003", // DEMO

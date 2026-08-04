@@ -19,7 +19,7 @@ export function LogisticsSection() {
         <path d="M150 120 L140 240" stroke="var(--brass)" strokeWidth="1" strokeDasharray="6 5" opacity="0.6" />
       </svg>
       <p className="text-lead text-ink-secondary max-w-[32ch]">
-        One warehouse in Jaipur. Every road out of it leads to one of {facts.capability.districtsServed} districts that&apos;s already building — materials dispatched before the schedule notices they were needed.
+        One warehouse in Jaipur. Every road out of it leads to one of {facts.capability.districtsServed} districts that&apos;s already building. Materials dispatched before the schedule notices they were needed.
       </p>
     </div>
   );

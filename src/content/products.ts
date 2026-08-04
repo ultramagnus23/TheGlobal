@@ -44,7 +44,7 @@ export const products: Product[] = [
       { label: "Pressure class", value: "SDR 11" },
       { label: "Working temperature", value: "Up to 82°C" },
       { label: "Pack quantity", value: "50 lengths per bundle" },
-      { label: "Coverage", value: "N/A — sold by length" },
+      { label: "Coverage", value: "N/A (sold by length)" },
     ],
     downloads: [
       { title: "CPVC Pipe Spec Sheet", href: "/downloads/astral-cpvc-spec.pdf" },
@@ -72,7 +72,7 @@ export const products: Product[] = [
       { label: "Pipe type", value: "Type A" },
       { label: "Joint type", value: "Solvent cement" },
       { label: "Pack quantity", value: "Sold per length" },
-      { label: "Coverage", value: "N/A — sold by length" },
+      { label: "Coverage", value: "N/A (sold by length)" },
     ],
     downloads: [{ title: "SWR Pipe Spec Sheet", href: "/downloads/astral-swr-spec.pdf" }],
   },

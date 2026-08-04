@@ -11,7 +11,7 @@ import { facts } from "@/content/facts";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Astral Pipes & Plumbing Distributor — Jaipur, Rajasthan",
+  title: "Astral Pipes & Plumbing Distributor, Jaipur, Rajasthan",
   description:
     "Authorised Astral distributor in Jaipur, Rajasthan. CPVC and UPVC pipes, fittings, drainage and fire protection systems, dispatched statewide.",
   alternates: { canonical: canonical("/astral") },
@@ -23,7 +23,7 @@ export default function AstralPage() {
       <DivisionHero
         eyebrow="Global Sales · Authorised Astral Distributor"
         heading="Astral pipes & plumbing systems."
-        sub="Pipes, fittings, plumbing, water and drainage systems — held in depth at our Jaipur warehouse."
+        sub="Pipes, fittings, plumbing, water and drainage systems, held in depth at our Jaipur warehouse."
         imageLabel="Astral pipe fitting on sweep"
         imageAlt="Grey CPVC pipes and fittings stacked in a warehouse"
         imageSrc="/images/real/astral-cpvc.jpg"
@@ -71,7 +71,7 @@ export default function AstralPage() {
             <StaggerReveal className="grid grid-cols-1 gap-4" step={90}>
               <DownloadCard title="Astral Product Catalogue" fileType="PDF" href="/downloads/astral-catalogue.pdf" />
               <DownloadCard title="Astral Price List" fileType="PDF" href="/downloads/astral-price-list.pdf" />
-              <DownloadCard title="Global Sales — Astral Authorisation Letter" fileType="PDF" href="/downloads/astral-authorisation.pdf" />
+              <DownloadCard title="Global Sales: Astral Authorisation Letter" fileType="PDF" href="/downloads/astral-authorisation.pdf" />
             </StaggerReveal>
           </div>
         </section>

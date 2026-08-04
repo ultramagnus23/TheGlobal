@@ -31,6 +31,6 @@ export const faqItems: FaqItem[] = [
   {
     question: "Do you handle government and infrastructure tenders?",
     answer:
-      "Yes. We provide authorisation letters, GSTIN and other tender-grade documentation for government and infrastructure buyers — see our Downloads page or contact us directly.",
+      "Yes. We provide authorisation letters, GSTIN and other tender-grade documentation for government and infrastructure buyers. See our Downloads page or contact us directly.",
   },
 ];

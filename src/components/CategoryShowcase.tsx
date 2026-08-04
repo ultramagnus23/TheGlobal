@@ -25,7 +25,7 @@ export function CategoryShowcase({
       >
         <PlaceholderImage
           label={featured.name}
-          alt={`${featured.name} — featured range`}
+          alt={`${featured.name}, featured range`}
           className="aspect-[4/3] md:aspect-auto"
         />
         <div

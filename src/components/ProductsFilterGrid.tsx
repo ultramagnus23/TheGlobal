@@ -48,11 +48,17 @@ export function ProductsFilterGrid() {
         ))}
       </div>
 
-      <StaggerReveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" step={60}>
-        {visible.map((product) => (
-          <ProductCard key={product.slug} product={product} />
-        ))}
-      </StaggerReveal>
+      {visible.length > 0 ? (
+        <StaggerReveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" step={60}>
+          {visible.map((product) => (
+            <ProductCard key={product.slug} product={product} />
+          ))}
+        </StaggerReveal>
+      ) : (
+        <p className="text-body text-ink-secondary">
+          Full range available. Call us for current stock and pricing on this category.
+        </p>
+      )}
     </>
   );
 }

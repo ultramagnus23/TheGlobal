@@ -30,7 +30,7 @@ export function Gallery({ images, alt }: GalleryProps) {
         <PlaceholderImage
           label={images[index].label}
           src={images[index].src}
-          alt={`${alt} — image ${index + 1} of ${images.length}`}
+          alt={`${alt}, image ${index + 1} of ${images.length}`}
           className="aspect-[4/3] rounded-2xl"
         />
         {images.length > 1 ? (

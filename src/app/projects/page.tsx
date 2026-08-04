@@ -21,7 +21,7 @@ export default function ProjectsIndexPage() {
         <div className="mx-auto max-w-6xl px-6">
           <h1 className="text-h1 font-bold mb-4">Supplied, delivered, built.</h1>
           <p className="text-lead text-ink-secondary max-w-[34em] mb-12">
-            Real projects, captioned honestly by the product range we supplied — not a client list
+            Real projects, captioned honestly by the product range we supplied, not a client list
             we cannot verify.
           </p>
           <StaggerReveal className="grid grid-cols-1 md:grid-cols-3 gap-8" step={90}>

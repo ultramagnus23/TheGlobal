@@ -9,7 +9,7 @@ const rows = [
   },
   {
     numeral: facts.capability.warehouseSqft,
-    label: "Sq ft of Jaipur warehouse — standing inventory, ready to move.",
+    label: "Sq ft of Jaipur warehouse: standing inventory, ready to move.",
   },
   {
     numeral: facts.capability.districtsServed,
@@ -17,7 +17,7 @@ const rows = [
   },
   {
     numeral: "2",
-    label: "National brands, one authorised distributor — Astral and Somany, under one roof.",
+    label: "National brands, one authorised distributor: Astral and Somany, under one roof.",
   },
 ];
 

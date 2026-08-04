@@ -9,7 +9,7 @@ const pillars = [
   },
   {
     title: "We say no when we mean it.",
-    body: "If a range isn't in stock, we say so — a wrong promise costs a site more than an honest delay.",
+    body: "If a range isn't in stock, we say so. A wrong promise costs a site more than an honest delay.",
   },
   {
     title: "We price the project, not the moment.",

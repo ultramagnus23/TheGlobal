@@ -15,7 +15,7 @@ export function DemoDataBanner() {
       role="alert"
       className="sticky top-0 z-[999] flex items-center justify-center gap-2 bg-[#F5B400] px-4 py-2 text-center text-sm font-bold text-black"
     >
-      DEMO DATA — phone numbers, GSTIN, and addresses on this site are placeholders, not real. Not for production
+      DEMO DATA: phone numbers, GSTIN, and addresses on this site are placeholders, not real. Not for production
       use.
     </div>
   );

@@ -66,17 +66,17 @@ export const facts = factsSchema.parse({
   entities: {
     sales: {
       name: "Global Sales",
-      mandate: "Authorised Astral Distributor — pipes, fittings, plumbing, water & drainage systems",
+      mandate: "Authorised Astral Distributor: pipes, fittings, plumbing, water & drainage systems",
       gstin: "08DEMOX1234A1Z5", // DEMO — not a real GSTIN
-      address: "DEMO ADDRESS — Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+      address: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
       phone: "+919000000001", // DEMO
       whatsapp: "919000000002", // DEMO
     },
     marketing: {
       name: "Global Marketing",
-      mandate: "Exclusive Authorised Somany Distributor for Rajasthan — tiles, sanitaryware, bath fittings",
+      mandate: "Exclusive Authorised Somany Distributor for Rajasthan: tiles, sanitaryware, bath fittings",
       gstin: "08DEMOY5678B2Z6", // DEMO — not a real GSTIN
-      address: "DEMO ADDRESS — Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
+      address: "DEMO ADDRESS, Plot 00, Sitapura Industrial Area, Jaipur, Rajasthan 302022",
       phone: "+919000000003", // DEMO
       whatsapp: "919000000004", // DEMO
     },
