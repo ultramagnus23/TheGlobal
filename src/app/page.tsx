@@ -13,6 +13,7 @@ import { AudienceRow } from "@/components/AudienceRow";
 import { ContactSection } from "@/components/ContactSection";
 import { ColorRevealSection } from "@/components/ColorRevealSection";
 import { StaggerReveal } from "@/components/StaggerReveal";
+import { CareSection } from "@/components/CareSection";
 import { projects } from "@/content/projects";
 import { audiences } from "@/content/audiences";
 import { facts } from "@/content/facts";
@@ -72,6 +73,11 @@ export default function Home() {
             />
           </div>
         </section>
+      </ColorRevealSection>
+
+      {/* 5b. What reliability means here */}
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
+        <CareSection />
       </ColorRevealSection>
 
       {/* 6. Scale */}
