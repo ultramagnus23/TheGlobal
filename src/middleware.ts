@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
 /**
  * Preview and staging deploys must never be indexed — only `VERCEL_ENV ===
@@ -8,7 +7,7 @@ import type { NextRequest } from "next/server";
  * this treats the same as non-production (fail closed: index nothing
  * unless we're certain it's the live site).
  */
-export function middleware(_request: NextRequest) {
+export function middleware() {
   const response = NextResponse.next();
   if (process.env.VERCEL_ENV !== "production") {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");

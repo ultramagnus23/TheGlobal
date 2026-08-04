@@ -3,10 +3,10 @@ export interface TimelineItem {
   desc: string;
 }
 
-/** {{TOKEN}} years are real milestones without a confirmed date yet — fill in content/facts.ts style, not fabricated here. */
+/** DEMO DATA NOTICE: the two DEMO years below are placeholders for design review — the real authorisation dates have not been confirmed yet. */
 export const timeline: TimelineItem[] = [
   { year: "2007", desc: "First warehouse opens in Jaipur." },
-  { year: "{{SOMANY_AUTHORISATION_YEAR}}", desc: "Named Exclusive Somany Distributor for Rajasthan." },
-  { year: "{{ASTRAL_PARTNERSHIP_YEAR}}", desc: "Astral distribution partnership begins." },
+  { year: "2012 (DEMO)", desc: "Named Exclusive Somany Distributor for Rajasthan." },
+  { year: "2009 (DEMO)", desc: "Astral distribution partnership begins." },
   { year: "Today", desc: "Supplying Rajasthan. Shipping across India." },
 ];

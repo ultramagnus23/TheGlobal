@@ -4,6 +4,7 @@ import { facts } from "@/content/facts";
 import { Header } from "@/components/Header";
 import { MobileActionBar } from "@/components/MobileActionBar";
 import { Footer } from "@/components/Footer";
+import { DemoDataBanner } from "@/components/DemoDataBanner";
 import { buildSiteJsonLd, canonical } from "@/lib/jsonld";
 import "./globals.css";
 
@@ -45,6 +46,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <DemoDataBanner />
         <Header />
         <div className="flex-1 flex flex-col pt-16 md:pt-[72px]">
           {children}
