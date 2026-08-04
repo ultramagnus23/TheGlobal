@@ -19,12 +19,17 @@ interface PlaceholderImageProps {
 export function PlaceholderImage({ label, alt, className, dark, src, priority }: PlaceholderImageProps) {
   if (src) {
     return (
-      <div className={cn("relative overflow-hidden", className)}>
+      // bg-navy-900 fallback here isn't decorative — if the image request ever
+      // fails (seen in production: Vercel's on-the-fly optimizer erroring on
+      // these pre-optimized local webp files), a dark scrim on top of nothing
+      // renders as a flat muddy grey instead of a proper dark backdrop.
+      <div className={cn("relative overflow-hidden", dark && "bg-navy-900", className)}>
         <Image
           src={src}
           alt={alt}
           fill
           priority={priority}
+          unoptimized
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
         />
