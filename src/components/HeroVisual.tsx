@@ -2,10 +2,10 @@
 
 import dynamic from "next/dynamic";
 
-const WireframeHouse = dynamic(() => import("@/components/WireframeHouse").then((m) => m.WireframeHouse), {
+const ProductAssembly = dynamic(() => import("@/components/ProductAssembly").then((m) => m.ProductAssembly), {
   ssr: false,
 });
 
 export function HeroVisual() {
-  return <WireframeHouse />;
+  return <ProductAssembly />;
 }

@@ -11,7 +11,9 @@ export function ProjectScreen({ project }: { project: Project }) {
       <PlaceholderImage
         label={project.range}
         alt={`${project.name} in ${project.city}`}
+        src={project.image}
         dark
+        zoomOnHover
         className="absolute inset-0"
       />
       <div className="absolute inset-0 bg-navy-900/55" aria-hidden="true" />

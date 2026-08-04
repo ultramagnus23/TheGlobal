@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { EnquiryForm } from "@/components/EnquiryForm";
+import { StaggerReveal } from "@/components/StaggerReveal";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -31,14 +32,14 @@ export default function DealersPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="space-y-6 order-2 lg:order-1">
-              <ul className="space-y-6">
+              <StaggerReveal as="ul" className="space-y-6" step={110}>
                 {benefits.map((point) => (
                   <li key={point} className="flex gap-3 text-body text-ink-secondary">
                     <span className="text-success shrink-0" aria-hidden="true">✓</span>
                     {point}
                   </li>
                 ))}
-              </ul>
+              </StaggerReveal>
             </div>
 
             <div className="bg-surface rounded-3xl p-6 md:p-10 border border-border order-1 lg:order-2">

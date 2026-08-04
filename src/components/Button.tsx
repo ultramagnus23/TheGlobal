@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
+
+const MotionLink = motion.create(Link);
 
 type Tier = "primary" | "secondary" | "tertiary";
 type Size = "default" | "large";
@@ -53,18 +58,41 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
     </>
   );
 
+  // framer-motion's drag/animation event props conflict in type with the
+  // native DOM ones of the same name — Button never uses either, so they're
+  // stripped rather than reconciled.
+  const CONFLICTING_KEYS = ["onDrag", "onDragStart", "onDragEnd", "onAnimationStart", "onAnimationEnd"] as const;
+  function stripConflicting<T extends Record<string, unknown>>(obj: T) {
+    const copy = { ...obj };
+    CONFLICTING_KEYS.forEach((k) => delete copy[k]);
+    return copy;
+  }
+
   if ("href" in props && props.href) {
     const { href, ...anchorRest } = rest as AnchorHTMLAttributes<HTMLAnchorElement>;
     return (
-      <Link href={props.href} className={classes} {...anchorRest}>
+      <MotionLink
+        href={props.href}
+        className={classes}
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        transition={{ type: "spring", stiffness: 400, damping: 22 }}
+        {...stripConflicting(anchorRest as Record<string, unknown>)}
+      >
         {content}
-      </Link>
+      </MotionLink>
     );
   }
 
   return (
-    <button className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <motion.button
+      className={classes}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 400, damping: 22 }}
+      {...stripConflicting(rest as Record<string, unknown>)}
+    >
       {content}
-    </button>
+    </motion.button>
   );
 }

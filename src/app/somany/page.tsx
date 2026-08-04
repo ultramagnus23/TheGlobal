@@ -5,6 +5,7 @@ import { CategoryShowcase } from "@/components/CategoryShowcase";
 import { DownloadCard } from "@/components/DownloadCard";
 import { DivisionContactBlock } from "@/components/DivisionContactBlock";
 import { ColorRevealSection } from "@/components/ColorRevealSection";
+import { StaggerReveal } from "@/components/StaggerReveal";
 import { somanyCategories, somanyWhyBuy } from "@/content/divisions";
 import { facts } from "@/content/facts";
 import { canonical } from "@/lib/seo";
@@ -25,7 +26,7 @@ export default function SomanyPage() {
         sub="Floor tiles, wall tiles, slabs, sanitaryware and bath fittings — the full range, in stock, for Rajasthan."
         imageLabel="Somany large-format slab on sweep"
         imageAlt="Stack of large-format marble-look tile slabs in a showroom"
-        imageSrc="/images/generated/somany-hero.webp"
+        imageSrc="/images/real/somany-tiles-hero.webp"
         ctaHref="/contact"
         ctaLabel="Enquire Now"
       />
@@ -51,14 +52,14 @@ export default function SomanyPage() {
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-3xl px-6">
             <h2 className="text-h2 font-bold text-center mb-12">Why buy Somany from The Global</h2>
-            <ul className="space-y-6">
+            <StaggerReveal as="ul" className="space-y-6" step={90}>
               {somanyWhyBuy.map((point) => (
                 <li key={point} className="flex gap-3 text-body text-ink-secondary">
                   <span className="text-success shrink-0" aria-hidden="true">✓</span>
                   {point}
                 </li>
               ))}
-            </ul>
+            </StaggerReveal>
           </div>
         </section>
       </ColorRevealSection>
@@ -67,7 +68,7 @@ export default function SomanyPage() {
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-3xl px-6">
             <h2 className="text-h2 font-bold text-center mb-12">Downloads</h2>
-            <div className="grid grid-cols-1 gap-4">
+            <StaggerReveal className="grid grid-cols-1 gap-4" step={90}>
               <DownloadCard title="Somany Product Catalogue" fileType="PDF" href="/downloads/somany-catalogue.pdf" />
               <DownloadCard title="Somany Price List" fileType="PDF" href="/downloads/somany-price-list.pdf" />
               <DownloadCard
@@ -75,7 +76,7 @@ export default function SomanyPage() {
                 fileType="PDF"
                 href="/downloads/somany-authorisation.pdf"
               />
-            </div>
+            </StaggerReveal>
           </div>
         </section>
       </ColorRevealSection>

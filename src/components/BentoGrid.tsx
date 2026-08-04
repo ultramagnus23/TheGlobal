@@ -38,7 +38,7 @@ export function BentoGrid() {
 
         {/* Asymmetric bento: one wide hero cell, then three unequal-width cells below — not a uniform grid. */}
         <div className="space-y-6">
-          <div className="rounded-3xl bg-surface p-10 md:p-14 border-t-2 border-brass shadow-[0_1px_2px_rgba(19, 19, 15,0.04)]">
+          <div className="rounded-3xl bg-surface p-10 md:p-14 border-t-2 border-brass shadow-[0_1px_2px_rgba(19,19,15,0.04)]">
             <p className="font-numeral text-numeral font-semibold text-navy-800 tabular">
               {hero.numeral}
             </p>
@@ -50,7 +50,7 @@ export function BentoGrid() {
             {rest.map((item) => (
               <div
                 key={item.label}
-                className="rounded-3xl bg-surface p-8 shadow-[0_1px_2px_rgba(19, 19, 15,0.04)]"
+                className="rounded-3xl bg-surface p-8 shadow-[0_1px_2px_rgba(19,19,15,0.04)]"
               >
                 <p className="font-numeral text-numeral font-semibold text-navy-800 tabular">
                   {item.numeral}

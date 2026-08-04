@@ -14,9 +14,11 @@ interface PlaceholderImageProps {
   /** Real (or generated stand-in) image path. Omit to render the flat labelled placeholder. */
   src?: string;
   priority?: boolean;
+  /** Scale up slightly on hover — only meaningful when the parent has `group`. */
+  zoomOnHover?: boolean;
 }
 
-export function PlaceholderImage({ label, alt, className, dark, src, priority }: PlaceholderImageProps) {
+export function PlaceholderImage({ label, alt, className, dark, src, priority, zoomOnHover }: PlaceholderImageProps) {
   if (src) {
     return (
       // bg-navy-900 fallback here isn't decorative — if the image request ever
@@ -31,7 +33,7 @@ export function PlaceholderImage({ label, alt, className, dark, src, priority }:
           priority={priority}
           unoptimized
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
+          className={cn("object-cover", zoomOnHover && "transition-transform duration-700 ease-out group-hover:scale-105")}
         />
       </div>
     );

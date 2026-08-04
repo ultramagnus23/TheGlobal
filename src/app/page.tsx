@@ -4,6 +4,7 @@ import { CredentialBand } from "@/components/CredentialBand";
 import { AssemblyStory } from "@/components/AssemblyStory";
 import { StatementSection } from "@/components/StatementSection";
 import { TimelineSection } from "@/components/TimelineSection";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { ScaleSection } from "@/components/ScaleSection";
 import { BrandSplitFull } from "@/components/BrandSplitFull";
 import { ProjectScreen } from "@/components/ProjectScreen";
@@ -11,6 +12,8 @@ import { LogisticsSection } from "@/components/LogisticsSection";
 import { AudienceRow } from "@/components/AudienceRow";
 import { ContactSection } from "@/components/ContactSection";
 import { ColorRevealSection } from "@/components/ColorRevealSection";
+import { StaggerReveal } from "@/components/StaggerReveal";
+import { CareSection } from "@/components/CareSection";
 import { projects } from "@/content/projects";
 import { audiences } from "@/content/audiences";
 import { facts } from "@/content/facts";
@@ -62,8 +65,19 @@ export default function Home() {
             <div className="mt-12">
               <TimelineSection />
             </div>
+            <PlaceholderImage
+              label="Warehouse & distribution network"
+              alt="Warehouse and distribution network"
+              src="/images/real/warehouse-network.webp"
+              className="mt-12 h-[340px] rounded-2xl"
+            />
           </div>
         </section>
+      </ColorRevealSection>
+
+      {/* 5b. What reliability means here */}
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
+        <CareSection />
       </ColorRevealSection>
 
       {/* 6. Scale */}
@@ -127,11 +141,11 @@ export default function Home() {
             <h2 className="font-display text-h2 font-semibold text-ink text-center mb-12">
               Who we supply
             </h2>
-            <div>
+            <StaggerReveal>
               {audiences.map((audience) => (
                 <AudienceRow key={audience.label} audience={audience} />
               ))}
-            </div>
+            </StaggerReveal>
           </div>
         </section>
       </ColorRevealSection>

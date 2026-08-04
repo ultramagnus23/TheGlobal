@@ -1,11 +1,23 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import type { Audience } from "@/content/audiences";
+import { cn } from "@/lib/cn";
 
-export function AudienceRow({ audience }: { audience: Audience }) {
+interface AudienceRowProps {
+  audience: Audience;
+  className?: string;
+  style?: CSSProperties;
+}
+
+export function AudienceRow({ audience, className, style }: AudienceRowProps) {
   return (
     <Link
       href={audience.href}
-      className="flex items-center justify-between gap-6 py-6 border-b border-hairline hover:bg-canvas-sunken -mx-4 px-4 rounded-lg"
+      className={cn(
+        "flex items-center justify-between gap-6 py-6 border-b border-hairline hover:bg-canvas-sunken -mx-4 px-4 rounded-lg",
+        className
+      )}
+      style={style}
     >
       <div>
         <p className="text-h3 font-semibold text-ink">{audience.label}</p>

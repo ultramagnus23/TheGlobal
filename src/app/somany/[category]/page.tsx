@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ProductCard } from "@/components/ProductCard";
+import { StaggerReveal } from "@/components/StaggerReveal";
 import { somanyCategories } from "@/content/divisions";
 import { getProductsByCategory } from "@/content/products";
 import { canonical } from "@/lib/seo";
@@ -52,11 +53,11 @@ export default async function SomanyCategoryPage({
           <p className="text-lead text-ink-secondary max-w-[34em] mb-10">{found.blurb}</p>
 
           {categoryProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <StaggerReveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" step={70}>
               {categoryProducts.map((product) => (
                 <ProductCard key={product.slug} product={product} />
               ))}
-            </div>
+            </StaggerReveal>
           ) : (
             <p className="text-body text-ink-secondary">
               Full range available — call us for current stock and pricing on this category.
