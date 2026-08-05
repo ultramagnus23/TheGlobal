@@ -44,7 +44,14 @@ export function detectCapabilityTier(): CapabilityTier {
   // kept: it reflects an explicit user preference, not an inferred guess.
   if (nav.connection?.saveData) return "reduced";
 
-  if (window.innerWidth * window.devicePixelRatio > 5000) return "reduced";
+  // Deliberately NOT gating on innerWidth * devicePixelRatio either: it was
+  // meant to avoid absurd canvas resolutions, but the renderer already caps
+  // devicePixelRatio at 2 when it calls setPixelRatio(min(dpr, 2)) — this
+  // check was redundant with that clamp and, at a threshold of 5000, tripped
+  // on any ordinary high-DPI display (confirmed: a common Windows setup —
+  // a >=2560px-wide monitor at 125%+ scaling — exceeds 5000 easily). This
+  // was silently downgrading every WebGL scene at once for exactly the kind
+  // of display a real visitor is likely to have.
 
   return "full";
 }
