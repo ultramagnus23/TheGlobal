@@ -37,6 +37,19 @@
   --navy-600: #5c8aa3;
   --navy-100: #ede7d8;
 
+  /* --- "The Materials Assemble" — Night Warehouse palette, scoped to the
+     homepage hero (ParticleAssemblyHero) only. Deliberately NOT merged into
+     --navy-900 above: that token is shared by many other homepage sections
+     (CredentialBand, Statement, Timeline, Collision, StockPulse) that are
+     out of scope for this pass — swapping it would have re-themed all of
+     them as a side effect. OKLCH, no pure black/white. --- */
+  --void: oklch(0.16 0.012 260);
+  --void-raised: oklch(0.2 0.014 260);
+  --ember: oklch(0.68 0.19 45);
+  --ember-hot: oklch(0.78 0.17 55);
+  --glaze: oklch(0.82 0.1 195);
+  --bone: oklch(0.93 0.008 80);
+
   /* --- Brass — the signature accent, still non-text-only by default --- */
   --brass: #9c7a4f;
   --brass-text: #6b4f2e;
@@ -292,4 +305,34 @@ table, .tabular {
   animation-name: stock-pulse-ring;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   animation-iteration-count: infinite;
+}
+
+/* --- 2.9 No-WebGL hero fallback: the house's own strokes draw themselves
+   on via stroke-dashoffset, instead of a particle simulation — per-element
+   dasharray is set inline (each path/polygon has a different perimeter),
+   this just drives the offset from full-hidden to fully-drawn once. --- */
+/* Relies on each path/polygon carrying a pathLength="1" attribute (set in
+   AssemblyHouseSVG.tsx) so a single dasharray/dashoffset value of 1 works
+   uniformly regardless of each shape's real perimeter — pathLength is an
+   SVG element attribute, not something settable from CSS. */
+.assembly-stroke-draw path,
+.assembly-stroke-draw polygon {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1), fill-opacity 1.4s ease-out;
+  fill-opacity: 0;
+}
+.assembly-stroke-draw.is-drawn path,
+.assembly-stroke-draw.is-drawn polygon {
+  stroke-dashoffset: 0;
+  fill-opacity: 1;
+}
+.assembly-stroke-draw polygon:nth-of-type(3n) { transition-delay: 0.15s; }
+.assembly-stroke-draw polygon:nth-of-type(3n+1) { transition-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .assembly-stroke-draw path,
+  .assembly-stroke-draw polygon {
+    transition: none !important;
+  }
 }
