@@ -105,7 +105,11 @@ export function ForgeScene({
     // with the edge wireframe so the house reads as a volume, not just
     // outlines — pure edges left the frame looking too sparse. ---
     const stoneColor = 0xf2ede2;
-    const houseMat = new THREE.LineBasicMaterial({ color: stoneColor, transparent: true, opacity: 0.3 });
+    // Bumped from 0.3: at the old floor the wireframe read as barely-there
+    // against the spark field, so the "pipes and tiles becoming a house"
+    // story was legible only once heavily resolved — the house itself needs
+    // to read clearly from frame one, not just glow around it.
+    const houseMat = new THREE.LineBasicMaterial({ color: stoneColor, transparent: true, opacity: 0.55 });
     // Kept deliberately faint (opacity capped well below the wireframe/tiles/
     // pipes) — an earlier, more solid version of this fill read as a large
     // flat floating rectangle ("floating doors") rather than a house wall,
@@ -185,8 +189,11 @@ export function ForgeScene({
     }
 
     // --- Ambient sparks: additive blending, never fades toward the
-    // background colour, always reads as visible embers in motion. ---
-    const sparkCount = 900;
+    // background colour, always reads as visible embers in motion. Count
+    // and opacity cut back from an earlier pass that made the field read
+    // as generic sparkly noise, burying the actual house/pipes/tiles
+    // narrative — these are atmosphere now, not the main event. ---
+    const sparkCount = 380;
     const sparkPositions = new Float32Array(sparkCount * 3);
     const sparkColors = new Float32Array(sparkCount * 3);
     const sparkPhase = new Float32Array(sparkCount);
@@ -208,10 +215,10 @@ export function ForgeScene({
     sparkGeo.setAttribute("position", new THREE.BufferAttribute(sparkPositions, 3));
     sparkGeo.setAttribute("color", new THREE.BufferAttribute(sparkColors, 3));
     const sparkMat = new THREE.PointsMaterial({
-      size: 0.13,
+      size: 0.09,
       vertexColors: true,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.5,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
@@ -232,11 +239,11 @@ export function ForgeScene({
       const p = Math.max(0, Math.min(1, progressRef.current ?? 0));
       const pointer = pointerRef.current ?? { x: 0, y: 0 };
 
-      // House solidifies from a dim ghost (always >= 0.3 opacity, never gone) to fully solid.
+      // House solidifies from a clearly-visible ghost (never below 0.55) to fully solid.
       const solidT = ease(p);
       houseGroup.children.forEach((child) => {
         if (child instanceof THREE.LineSegments) {
-          (child.material as THREE.LineBasicMaterial).opacity = 0.3 + solidT * 0.6;
+          (child.material as THREE.LineBasicMaterial).opacity = 0.55 + solidT * 0.4;
         }
       });
       fillMeshes.forEach((mesh) => {
@@ -279,7 +286,7 @@ export function ForgeScene({
         posAttr.setY(i, posAttr.getY(i) + Math.sin(t * 2) * 0.0015);
       }
       posAttr.needsUpdate = true;
-      sparkMat.opacity = 0.85 - solidT * 0.35;
+      sparkMat.opacity = 0.5 - solidT * 0.25;
 
       // Cursor parallax: camera drifts toward the pointer, independent of scroll.
       const targetX = baseCamPos.x + pointer.x * 0.9;

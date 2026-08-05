@@ -56,7 +56,22 @@ export function ColorRevealSection({ from, to, children, className }: ColorRevea
           observer.disconnect();
         }
       },
-      { rootMargin: "0px 0px -15% 0px", threshold: 0 }
+      // A section scrolling up from below the fold is caught by the BOTTOM
+      // margin, not the top (top margin only matters for a target leaving
+      // past the top edge, which doesn't apply here — an earlier version of
+      // this fix changed the top margin and left the actual trigger timing
+      // for incoming-from-below sections basically unchanged). A positive
+      // bottom value extends the observed area below the real viewport, so
+      // intersection fires while the section is still below the fold — set
+      // to 1200px, comfortably more than the background-plus-content reveal
+      // takes (400ms delay + 350ms transition each ≈ 750ms total) can cover
+      // even at a fast flick-scroll speed. The old "-15%" bottom value did
+      // the opposite — shrinking the observed area, triggering only once
+      // already 15% visible — which combined with that ~750ms transition
+      // meant any normal-to-fast scroll showed a plain, contentless colour
+      // box for a real stretch of time: exactly the "empty" symptom
+      // reported live.
+      { rootMargin: "0px 0px 1200px 0px", threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
