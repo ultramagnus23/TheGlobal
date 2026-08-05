@@ -75,7 +75,8 @@ export default function AboutPage() {
             </div>
             <PlaceholderImage
               label="The team on the warehouse floor"
-              alt="The Global's team at the Jaipur warehouse"
+              alt="Warehouse staff checking inventory at the Jaipur warehouse"
+              src="/images/generated/warehouse-team.webp"
               className="aspect-[4/3] rounded-2xl order-1 md:order-2"
             />
           </div>

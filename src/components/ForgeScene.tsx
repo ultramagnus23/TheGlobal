@@ -106,7 +106,12 @@ export function ForgeScene({
     // outlines — pure edges left the frame looking too sparse. ---
     const stoneColor = 0xf2ede2;
     const houseMat = new THREE.LineBasicMaterial({ color: stoneColor, transparent: true, opacity: 0.3 });
-    const fillMat = new THREE.MeshStandardMaterial({ color: 0x2a2440, transparent: true, opacity: 0.35, roughness: 0.8, side: THREE.DoubleSide });
+    // Kept deliberately faint (opacity capped well below the wireframe/tiles/
+    // pipes) — an earlier, more solid version of this fill read as a large
+    // flat floating rectangle ("floating doors") rather than a house wall,
+    // competing with the actual pipe/tile geometry that's supposed to be the
+    // visible story. This is ambient volume shading now, not a distinct shape.
+    const fillMat = new THREE.MeshStandardMaterial({ color: 0x2a2440, transparent: true, opacity: 0.08, roughness: 0.8, side: THREE.DoubleSide });
 
     function edgesOf(geo: THREE.BufferGeometry) {
       return new THREE.LineSegments(new THREE.EdgesGeometry(geo), houseMat.clone());
@@ -137,16 +142,19 @@ export function ForgeScene({
     houseGroup.rotation.y = -0.5;
     scene.add(houseGroup);
 
-    // Solid roof tiles (Somany) fill in as progress advances.
-    const tileGeo = new THREE.BoxGeometry(0.42, 0.05, 0.42);
+    // Solid roof tiles (Somany) fill in as progress advances — the literal
+    // "tiles coming together" the hero is meant to show, so kept dense and
+    // large enough to read clearly, not as background texture.
+    const tileGeo = new THREE.BoxGeometry(0.5, 0.06, 0.5);
     const tileMat = new THREE.MeshStandardMaterial({ color: 0xd9773f, roughness: 0.7, transparent: true, opacity: 0 });
     const tiles: THREE.Mesh[] = [];
     const tileStarts: THREE.Vector3[] = [];
     const tileTargets: THREE.Vector3[] = [];
-    for (let i = 0; i < 10; i++) {
+    const tileCount = 16;
+    for (let i = 0; i < tileCount; i++) {
       const t = new THREE.Mesh(tileGeo, tileMat.clone());
-      const angle = (i / 10) * Math.PI * 2;
-      const targetPos = new THREE.Vector3(Math.cos(angle) * 1.1, 2.4 + (i % 2) * 0.3, Math.sin(angle) * 0.7);
+      const angle = (i / tileCount) * Math.PI * 2;
+      const targetPos = new THREE.Vector3(Math.cos(angle) * 1.15, 2.35 + (i % 3) * 0.22, Math.sin(angle) * 0.75);
       const startPos = new THREE.Vector3((Math.random() - 0.5) * 8, Math.random() * 5 + 2, (Math.random() - 0.5) * 6 - 2);
       t.position.copy(startPos);
       tiles.push(t);
@@ -166,7 +174,7 @@ export function ForgeScene({
       { target: new THREE.Vector3(-1.15, 1.75, 1.25), rot: new THREE.Euler(0, 0, Math.PI / 2), len: 1.0 },
     ];
     for (const spec of pipeSpecs) {
-      const geo = new THREE.CylinderGeometry(0.09, 0.09, spec.len, 12);
+      const geo = new THREE.CylinderGeometry(0.13, 0.13, spec.len, 12);
       const mesh = new THREE.Mesh(geo, pipeMat.clone());
       const start = new THREE.Vector3((Math.random() - 0.5) * 8, Math.random() * 5 + 1, (Math.random() - 0.5) * 6 - 2);
       mesh.position.copy(start);
@@ -232,8 +240,13 @@ export function ForgeScene({
         }
       });
       fillMeshes.forEach((mesh) => {
-        (mesh.material as THREE.MeshStandardMaterial).opacity = 0.12 + solidT * 0.35;
+        (mesh.material as THREE.MeshStandardMaterial).opacity = 0.03 + solidT * 0.09;
       });
+
+      // The house itself keeps a slow continuous turn, independent of scroll —
+      // it's a living object being built, not a static model that only
+      // reacts when the visitor scrolls.
+      houseGroup.rotation.y = -0.5 + Math.sin(clock * 0.0015) * 0.12 + p * 0.22;
 
       // Tiles fly in and land between 20% and 70% scroll.
       const tileT = ease(Math.max(0, Math.min(1, (p - 0.2) / 0.5)));

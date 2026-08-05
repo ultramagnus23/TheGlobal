@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ProductCard } from "@/components/ProductCard";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { StaggerReveal } from "@/components/StaggerReveal";
 import { findCategory, allCategories } from "@/content/divisions";
 import { getProductsByCategory } from "@/content/products";
@@ -59,9 +60,17 @@ export default async function ProductCategoryPage({
               ))}
             </StaggerReveal>
           ) : (
-            <p className="text-body text-ink-secondary">
-              Full range available. Call us for current stock and pricing on this category.
-            </p>
+            <div className="max-w-2xl">
+              <PlaceholderImage
+                label={found.category.name}
+                alt={`${found.category.name}, full range available`}
+                src={found.category.image}
+                className="aspect-[16/9] rounded-2xl mb-8"
+              />
+              <p className="text-body text-ink-secondary">
+                Full range available. Call us for current stock and pricing on this category.
+              </p>
+            </div>
           )}
         </div>
       </section>
