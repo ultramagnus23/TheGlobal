@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ForgeSequence } from "@/components/ForgeSequence";
+import { ParticleAssemblyHero } from "@/components/ParticleAssemblyHero";
 import { CredentialBand } from "@/components/CredentialBand";
 import { AssemblyStory } from "@/components/AssemblyStory";
 import { StatementSection } from "@/components/StatementSection";
@@ -21,11 +21,11 @@ import { facts } from "@/content/facts";
 export default function Home() {
   return (
     <main id="main-content">
-      {/* 1. Hero: The Forge Sequence */}
-      <ForgeSequence />
+      {/* 1. Hero: The Materials Assemble */}
+      <ParticleAssemblyHero />
 
       {/* 2. Credential band */}
-      <ColorRevealSection from="var(--navy-900)" to="var(--canvas-sunken)">
+      <ColorRevealSection from="var(--void)" to="var(--canvas-sunken)">
         <CredentialBand />
       </ColorRevealSection>
 

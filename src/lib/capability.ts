@@ -12,7 +12,7 @@
  */
 export type CapabilityTier = "full" | "reduced";
 
-function hasWebGL(): boolean {
+export function hasWebGL(): boolean {
   try {
     const canvas = document.createElement("canvas");
     return !!(canvas.getContext("webgl2") || canvas.getContext("webgl"));
@@ -54,4 +54,36 @@ export function detectCapabilityTier(): CapabilityTier {
   // of display a real visitor is likely to have.
 
   return "full";
+}
+
+export interface AssemblyCapability {
+  prefersReducedMotion: boolean;
+  hasWebGL: boolean;
+  /** Device-level tier from the checks above, independent of viewport size. */
+  deviceTier: CapabilityTier;
+  /** Coarse pointer or narrow viewport — the brief's cue to switch the hero
+   * from scroll-scrub to tap-through advance, since a long scrub-scroll
+   * reads as broken on a short phone viewport. */
+  isMobileLike: boolean;
+}
+
+/**
+ * Richer signal set for ParticleAssemblyHero specifically, which needs to
+ * pick between four distinct experiences (full WebGL, no-WebGL SVG
+ * fallback, reduced-motion static, mobile tap-through) rather than the
+ * binary full/reduced most other scenes on this site use.
+ */
+export function detectAssemblyCapability(): AssemblyCapability {
+  const prefersReducedMotion =
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const webgl = typeof window !== "undefined" && hasWebGL();
+  const isMobileLike =
+    typeof window !== "undefined" &&
+    (window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 860);
+  return {
+    prefersReducedMotion,
+    hasWebGL: webgl,
+    deviceTier: typeof window === "undefined" ? "reduced" : detectCapabilityTier(),
+    isMobileLike,
+  };
 }
