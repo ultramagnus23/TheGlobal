@@ -201,3 +201,20 @@ table, .tabular {
 .prose-measure {
   max-width: 34em;
 }
+
+/* ==========================================================================
+   NIGHT WAREHOUSE — scoped dark theme for the homepage hero only.
+   Raw material becomes built form: dust becomes tile, granules become pipe.
+   OKLCH, no pure black/white. Scoped under .theme-night so the rest of the
+   (light, daylight-dispatch) site is untouched.
+   ========================================================================== */
+.theme-night {
+  --void: oklch(0.16 0.012 260);
+  --void-raised: oklch(0.20 0.014 260);
+  --ember: oklch(0.68 0.19 45);
+  --ember-hot: oklch(0.78 0.17 55);
+  --glaze: oklch(0.82 0.10 195);
+  --bone: oklch(0.93 0.008 80);
+  background: var(--void);
+  color: var(--bone);
+}

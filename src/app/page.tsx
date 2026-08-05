@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Hero } from "@/components/Hero";
+import { HeroScrollStage } from "@/components/hero/HeroScrollStage";
+import { ScrollProvider } from "@/lib/useScrollProgress";
 import { CredentialBand } from "@/components/CredentialBand";
 import { DivisionCard } from "@/components/DivisionCard";
 import { BentoGrid } from "@/components/BentoGrid";
@@ -10,12 +11,15 @@ import { ContactSection } from "@/components/ContactSection";
 import { Reveal } from "@/components/Reveal";
 import { projects } from "@/content/projects";
 import { audiences } from "@/content/audiences";
+import { astralCategories, somanyCategories, astralWhyBuy, somanyWhyBuy } from "@/content/divisions";
 
 export default function Home() {
   return (
     <main id="main-content">
       {/* 1. Hero */}
-      <Hero />
+      <ScrollProvider>
+        <HeroScrollStage />
+      </ScrollProvider>
 
       {/* 2. Credential band */}
       <Reveal>
@@ -36,6 +40,8 @@ export default function Home() {
                 href="/somany"
                 imageLabel="Somany large-format slab"
                 imageAlt="A single large-format Somany tile slab photographed on a near-white sweep"
+                categories={somanyCategories}
+                whyBuy={somanyWhyBuy}
               />
               <DivisionCard
                 brand="astral"
@@ -45,6 +51,8 @@ export default function Home() {
                 href="/astral"
                 imageLabel="Astral pipe fitting"
                 imageAlt="A single Astral pipe joint photographed on a near-white sweep"
+                categories={astralCategories}
+                whyBuy={astralWhyBuy}
               />
             </div>
           </div>

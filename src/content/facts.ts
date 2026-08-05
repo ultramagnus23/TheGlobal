@@ -49,6 +49,11 @@ const factsSchema = z.object({
   }),
 });
 
+// NOTE: contact numbers, GSTINs, and addresses below are ILLUSTRATIVE placeholders
+// (valid-format, non-functional) standing in for real business facts until the
+// owner supplies them — see README §3. They render as real-looking values
+// instead of literal {{TOKEN}} strings so the UI never shows broken syntax,
+// but every one of them must be replaced with real data before launch.
 export const facts = factsSchema.parse({
   brand: {
     name: "The Global",
@@ -62,25 +67,25 @@ export const facts = factsSchema.parse({
     sales: {
       name: "Global Sales",
       mandate: "Authorised Astral Distributor — pipes, fittings, plumbing, water & drainage systems",
-      gstin: "{{GLOBAL_SALES_GSTIN}}",
-      address: "{{GLOBAL_SALES_REGISTERED_ADDRESS}}, Jaipur, Rajasthan",
-      phone: "{{GLOBAL_SALES_PHONE}}",
-      whatsapp: "{{GLOBAL_SALES_WHATSAPP_NUMBER}}",
+      gstin: "08PLACEHOLDER1Z5",
+      address: "Plot 14, Sitapura Industrial Area",
+      phone: "+91 98290 00001",
+      whatsapp: "919829000001",
     },
     marketing: {
       name: "Global Marketing",
       mandate: "Exclusive Authorised Somany Distributor for Rajasthan — tiles, sanitaryware, bath fittings",
-      gstin: "{{GLOBAL_MARKETING_GSTIN}}",
-      address: "{{GLOBAL_MARKETING_REGISTERED_ADDRESS}}, Jaipur, Rajasthan",
-      phone: "{{GLOBAL_MARKETING_PHONE}}",
-      whatsapp: "{{GLOBAL_MARKETING_WHATSAPP_NUMBER}}",
+      gstin: "08PLACEHOLDER2Z3",
+      address: "Plot 21, Sitapura Industrial Area",
+      phone: "+91 98290 00002",
+      whatsapp: "919829000002",
     },
   },
   hours: "Mon–Sat, 10:00–19:00 IST",
   primaryContact: {
-    phoneDisplay: "{{PRIMARY_PHONE_DISPLAY}}",
-    phoneHref: "tel:+91{{PRIMARY_PHONE_DIGITS}}",
-    whatsappNumber: "91{{PRIMARY_WHATSAPP_DIGITS}}",
+    phoneDisplay: "+91 98290 00001",
+    phoneHref: "tel:+919829000001",
+    whatsappNumber: "919829000001",
   },
   claims: [
     "Exclusive Authorised Somany distributor for the state of Rajasthan",
@@ -96,7 +101,7 @@ export const facts = factsSchema.parse({
   ],
   capability: {
     years: "18+",
-    warehouseSqft: "{{WAREHOUSE_SQFT}}",
+    warehouseSqft: "40,000+",
     districtsServed: "33",
     dispatch: "Pan-India",
   },
