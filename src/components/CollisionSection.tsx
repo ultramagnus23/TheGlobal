@@ -9,12 +9,19 @@ const CollisionCanvas = dynamic(() => import("@/components/CollisionCanvas").the
   ssr: false,
 });
 
+const MAX_OVERLAY_MS = 6000;
+
 /**
  * The Collision: cool Astral particles and warm Somany particles rush
- * together and scatter, then the overlay fades to reveal the real
- * BrandSplitFull content, which is always present underneath (progressive
- * enhancement — the real links work with JS disabled, mid-animation, or
- * on the "reduced" capability tier, which skips the canvas outright).
+ * together and scatter across the real BrandSplitFull content, which
+ * renders underneath and is visible the entire time — the canvas has no
+ * background fill, only particles, and is `pointer-events-none`, so it is
+ * structurally incapable of hiding or blocking the real links beneath it,
+ * mid-animation or otherwise. (An earlier version put a solid-colour div
+ * behind the canvas and only revealed the real content once a timed
+ * animation reported done; any interruption to that timer left the
+ * section looking completely empty — this version can't do that, and a
+ * hard timeout unmounts the canvas regardless as a second safety net.)
  * Fires once, the first time the section scrolls into view.
  */
 export function CollisionSection() {
@@ -41,14 +48,17 @@ export function CollisionSection() {
     return () => observer.disconnect();
   }, [live]);
 
+  useEffect(() => {
+    if (!triggered || done) return;
+    const timeout = setTimeout(() => setDone(true), MAX_OVERLAY_MS);
+    return () => clearTimeout(timeout);
+  }, [triggered, done]);
+
   return (
     <div ref={ref} className="relative">
       <BrandSplitFull />
       {live && triggered && !done ? (
-        <div
-          className="absolute inset-0 z-10 flex bg-[#0c0a14] transition-opacity duration-500"
-          style={{ opacity: done ? 0 : 1 }}
-        >
+        <div className="absolute inset-0 z-10 pointer-events-none">
           <CollisionCanvas onDone={() => setDone(true)} />
         </div>
       ) : null}

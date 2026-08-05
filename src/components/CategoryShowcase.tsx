@@ -26,6 +26,8 @@ export function CategoryShowcase({
         <PlaceholderImage
           label={featured.name}
           alt={`${featured.name}, featured range`}
+          src={featured.image}
+          zoomOnHover
           className="aspect-[4/3] md:aspect-auto"
         />
         <div
@@ -54,19 +56,27 @@ export function CategoryShowcase({
           <li key={category.slug} className="border-b border-hairline">
             <Link
               href={`${basePath}/${category.slug}`}
-              className="flex items-center justify-between gap-6 py-6 px-2 -mx-2 rounded-lg hover:bg-canvas-sunken"
+              className="flex items-center gap-4 py-6 px-2 -mx-2 rounded-lg hover:bg-canvas-sunken"
             >
-              <div>
-                <p className="text-h3 font-semibold text-ink">{category.name}</p>
-                <p className="text-body text-ink-secondary mt-1 max-w-[50ch]">{category.blurb}</p>
+              <PlaceholderImage
+                label=""
+                alt=""
+                src={category.image}
+                className="w-16 h-16 rounded-xl shrink-0"
+              />
+              <div className="flex-1 flex items-center justify-between gap-6">
+                <div>
+                  <p className="text-h3 font-semibold text-ink">{category.name}</p>
+                  <p className="text-body text-ink-secondary mt-1 max-w-[50ch]">{category.blurb}</p>
+                </div>
+                <span
+                  aria-hidden="true"
+                  className="text-2xl shrink-0"
+                  style={{ color: "var(--partner-text)" }}
+                >
+                  ›
+                </span>
               </div>
-              <span
-                aria-hidden="true"
-                className="text-2xl shrink-0"
-                style={{ color: "var(--partner-text)" }}
-              >
-                ›
-              </span>
             </Link>
           </li>
         ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
@@ -12,25 +12,29 @@ import { cn } from "@/lib/cn";
 const ForgeScene = dynamic(() => import("@/components/ForgeScene").then((m) => m.ForgeScene), { ssr: false });
 
 /**
- * Homepage hero. Raw material particles (rebar-red, void-dark) converge
- * into a building facade as the visitor scrolls a 300vh track, camera
- * pulling back the whole time; two anchor volumes solidify at the end as
- * the literal home for the Astral/Somany hotspot links, real <a> tags
- * layered over the canvas rather than WebGL-picked objects, so they stay
- * keyboard- and screen-reader-reachable regardless of what the scene is
- * doing. "We hold stock. That is the entire business model." lands, full
- * width, the instant the sequence resolves, instead of waiting at scroll
- * position four the way the previous quiet build did it.
+ * Homepage hero. A ghost wireframe house is visible from the very first
+ * frame (never blank), with real pipe (cylinder, Astral blue) and tile
+ * (flat box, Somany terracotta) geometry flying in from scattered chaos
+ * and visibly attaching to it as the visitor scrolls a 300vh track;
+ * ambient ember/spark particles use additive blending so they never fade
+ * into the background the way a dim opaque colour can. The camera also
+ * drifts toward the cursor independent of scroll (see `pointer`), so the
+ * scene visibly reacts before the visitor scrolls at all. Two anchor
+ * points solidify at the end as the home for the Astral/Somany hotspot
+ * links, real `Link` components layered over the canvas rather than
+ * WebGL-picked meshes, so they stay keyboard- and screen-reader-reachable
+ * regardless of what the scene is doing.
  *
  * Below the "full" capability tier (see useCapabilityTier: no WebGL,
  * reduced-motion, low memory/CPU, save-data, or a slow connection), skips
- * the canvas entirely and renders a single static resolved frame with the
- * same copy and the same two hotspot links. No information the live scene
- * carries is exclusive to it.
+ * the canvas entirely and renders a static SVG of the same ghost house
+ * with the same copy and the same two hotspot links, so nobody on that
+ * path sees an empty gradient either.
  */
 export function ForgeSequence() {
   const trackRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef(0);
+  const pointerRef = useRef({ x: 0, y: 0 });
   const [resolved, setResolved] = useState(false);
   const tier = useCapabilityTier();
   const live = tier === "full";
@@ -46,6 +50,18 @@ export function ForgeSequence() {
     setResolved((prev) => (prev === isResolved ? prev : isResolved));
   });
 
+  useEffect(() => {
+    if (!live) return;
+    function onMove(e: PointerEvent) {
+      pointerRef.current = {
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -((e.clientY / window.innerHeight) * 2 - 1),
+      };
+    }
+    window.addEventListener("pointermove", onMove);
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [live]);
+
   const introOpacity = useTransform(scrollYProgress, [0, 0.18], live ? [1, 0] : [1, 1]);
   const introY = useTransform(scrollYProgress, [0, 0.3], live ? [0, -40] : [0, 0]);
 
@@ -59,17 +75,9 @@ export function ForgeSequence() {
         style={{ background: "radial-gradient(ellipse at 50% 30%, #1f1a2e, #0c0a14 70%)" }}
       >
         {live ? (
-          <ForgeScene progressRef={progressRef} />
+          <ForgeScene progressRef={progressRef} pointerRef={pointerRef} />
         ) : (
-          <div className="absolute inset-0" aria-hidden="true">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(circle at 30% 60%, rgba(217,122,58,0.18), transparent 45%), radial-gradient(circle at 70% 55%, rgba(92,159,214,0.14), transparent 45%)",
-              }}
-            />
-          </div>
+          <GhostHouseStatic />
         )}
 
         <motion.div
@@ -157,6 +165,41 @@ export function ForgeSequence() {
           </div>
         ) : null}
       </section>
+    </div>
+  );
+}
+
+/**
+ * Static-tier fallback: the same ghost-house language as ForgeScene, drawn
+ * once as inline SVG instead of animated. Used whenever the live WebGL
+ * scene is skipped (reduced motion, low capability), so that path never
+ * shows a plain gradient with nothing recognisable on it.
+ */
+function GhostHouseStatic() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+      <svg viewBox="0 0 400 300" className="w-full max-w-2xl h-auto opacity-80" fill="none">
+        <polyline
+          points="60,180 60,110 200,30 340,110 340,180"
+          stroke="#f2ede2"
+          strokeOpacity="0.5"
+          strokeWidth="2"
+        />
+        <rect x="60" y="180" width="280" height="16" stroke="#f2ede2" strokeOpacity="0.5" strokeWidth="2" />
+        <line x1="140" y1="120" x2="140" y2="60" stroke="#5c9fd6" strokeWidth="4" strokeLinecap="round" />
+        <line x1="140" y1="120" x2="180" y2="120" stroke="#5c9fd6" strokeWidth="4" strokeLinecap="round" />
+        {Array.from({ length: 6 }).map((_, i) => (
+          <rect
+            key={i}
+            x={90 + (i % 3) * 75}
+            y={i < 3 ? 40 : 65}
+            width="28"
+            height="10"
+            fill="#d9773f"
+            opacity="0.75"
+          />
+        ))}
+      </svg>
     </div>
   );
 }

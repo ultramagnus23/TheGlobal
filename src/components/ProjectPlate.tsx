@@ -16,6 +16,8 @@ export function ProjectPlate({ project, className, style }: ProjectPlateProps) {
       <PlaceholderImage
         label={project.range}
         alt={`${project.name} in ${project.city}`}
+        src={project.image}
+        zoomOnHover
         className="aspect-[4/3] rounded-2xl"
       />
       <p className="mt-4 text-h3 font-semibold text-ink group-hover:underline">{project.name}</p>
