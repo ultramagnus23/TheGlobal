@@ -35,9 +35,14 @@ export function detectCapabilityTier(): CapabilityTier {
   if (nav.deviceMemory !== undefined && nav.deviceMemory < 4) return "reduced";
   if (nav.hardwareConcurrency !== undefined && nav.hardwareConcurrency < 4) return "reduced";
 
-  const conn = nav.connection;
-  if (conn?.saveData) return "reduced";
-  if (conn?.effectiveType && ["slow-2g", "2g", "3g"].includes(conn.effectiveType)) return "reduced";
+  // Deliberately NOT gating on connection.effectiveType: it's a heuristic
+  // about download speed, not rendering capability, and this scene has no
+  // network dependency (pure procedural geometry, nothing to download) —
+  // gating on it excluded fast, capable machines whenever the network
+  // heuristic misreported (confirmed: a 16-core/16GB test machine reported
+  // "3g" and got silently downgraded to the static fallback). saveData is
+  // kept: it reflects an explicit user preference, not an inferred guess.
+  if (nav.connection?.saveData) return "reduced";
 
   if (window.innerWidth * window.devicePixelRatio > 5000) return "reduced";
 
