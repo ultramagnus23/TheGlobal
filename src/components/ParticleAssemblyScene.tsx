@@ -146,7 +146,16 @@ void main(){
   clip.xy += pushDir * repel * clip.w;
   gl_Position = clip;
 
-  gl_PointSize = uPointSize * uPixelRatio * (1.0 + (1.0-eased)*0.6) * (300.0 / -mvPosition.z);
+  // Orthographic projection is parallel — point size must NOT scale with
+  // depth the way it would under a perspective camera. The previous
+  // the "* (300.0 / -mvPosition.z)" term assumed perspective foreshortening;
+  // with particles scattered up to ~18 units from an origin the camera
+  // sits only ~20 units from, any particle landing within a couple of
+  // units of the camera along the view axis sent -mvPosition.z toward
+  // zero, blowing gl_PointSize up toward infinity. A handful of those
+  // oversized sprites, additively blended, is the solid white/orange
+  // blowout reported live — this was never a colour or density bug.
+  gl_PointSize = uPointSize * uPixelRatio * (1.0 + (1.0-eased)*0.6);
 
   // Beat 0 ("a faint drift of ember-coloured particles... like kiln dust in
   // torchlight") applies to every cohort while unassembled, including the
