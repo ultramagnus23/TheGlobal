@@ -20,7 +20,12 @@ export function AssemblyScene({ progressRef }: { progressRef: React.RefObject<nu
     const canvas = document.createElement("canvas");
     mount.appendChild(canvas);
 
-    const stoneColor = 0xeae4d6;
+    // Was 0xeae4d6 — the exact hex of --canvas-sunken, this scene's own
+    // background token, so the wireframe was rendering itself invisible
+    // (near-zero contrast against its own backdrop, reading as an empty
+    // section with a few stray light-gray line fragments at the edges).
+    // --ink is the site's actual text colour, so the house reads clearly.
+    const stoneColor = 0x16150f;
     const astralColor = 0x5c8aa3;
     const somanyColor = 0xb99a6b;
 

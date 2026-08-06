@@ -45,6 +45,12 @@
      them as a side effect. OKLCH, no pure black/white. --- */
   --void: oklch(0.16 0.012 260);
   --void-raised: oklch(0.2 0.014 260);
+  /* Meaningfully lighter than --void/--void-raised (0.16/0.2) — those two
+     are close enough that a fill using either one, even at 0.7 opacity,
+     nearly disappears into the hero background. This is what gives the
+     assembled house's faces real presence instead of reading as bare
+     outline with "missing" translucent chunks. */
+  --void-elevated: oklch(0.34 0.02 260);
   --ember: oklch(0.68 0.19 45);
   --ember-hot: oklch(0.78 0.17 55);
   --glaze: oklch(0.82 0.1 195);
@@ -335,4 +341,15 @@ table, .tabular {
   .assembly-stroke-draw polygon {
     transition: none !important;
   }
+}
+
+/* Gentle breathing pulse for the glow behind the finished hero house — the
+   global prefers-reduced-motion rule above already freezes all animations
+   site-wide, so this needs no separate reduced-motion override. */
+@keyframes hero-glow-breathe {
+  0%, 100% { opacity: 0.28; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.06); }
+}
+.hero-glow-breathe {
+  animation: hero-glow-breathe 5s ease-in-out infinite;
 }

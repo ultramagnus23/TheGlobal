@@ -75,14 +75,14 @@ export function AssemblyHouseSVG({ className, interactive = true }: { className?
       role="img"
       aria-label="Cutaway diagram of a two-storey house showing Astral pipe runs and Somany tile and fixture placements, each linking to the matching catalogue"
     >
-      <g stroke="var(--bone)" strokeWidth={STRUCTURE_STROKE} fill="var(--void-raised)" fillOpacity={0.55} strokeLinejoin="round">
+      <g stroke="var(--bone)" strokeWidth={STRUCTURE_STROKE} fill="var(--void-elevated)" strokeLinejoin="round">
         {structureBoxes.map((box) => {
           const faces = boxFaces(box);
           return (
             <g key={box.id}>
-              <polygon points={faces.top} fillOpacity={0.7} pathLength={1} />
-              <polygon points={faces.right} fillOpacity={0.45} pathLength={1} />
-              <polygon points={faces.front} fillOpacity={0.3} pathLength={1} />
+              <polygon points={faces.top} fillOpacity={1} pathLength={1} />
+              <polygon points={faces.right} fillOpacity={0.75} pathLength={1} />
+              <polygon points={faces.front} fillOpacity={0.55} pathLength={1} />
             </g>
           );
         })}
