@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import Lenis from "lenis";
 import { Button } from "@/components/Button";
 import { AssemblyHouseSVG } from "@/components/AssemblyHouseSVG";
 import { detectAssemblyCapability, type AssemblyCapability } from "@/lib/capability";
@@ -16,8 +15,23 @@ const ParticleAssemblyScene = dynamic(
   { ssr: false }
 );
 
-const TRACK_VH = 380; // within the brief's 350-400vh range
 const BEAT_COUNT = 5; // Arrival, Pipes, Tiles, Fixtures, Reveal — for mobile tap-through
+
+// Autoplay timeline: dust is visible on its own for ARRIVAL_MS (the "takes
+// two seconds for the particles to show up" beat), then assembly ramps
+// start -> fully formed over ASSEMBLE_MS — on a timer, not gated by scroll,
+// so the house is guaranteed to finish forming without the visitor having
+// to scroll any particular distance to see it.
+const ARRIVAL_MS = 1800;
+const ASSEMBLE_MS = 5200;
+// How long to keep the (by-then fully transparent) particle canvas mounted
+// after resolving, so its own fade-out transition finishes cleanly before
+// it's torn down — after this, nothing particle-related remains on screen.
+const TEARDOWN_MS = 900;
+
+function easeInOutCubic(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
 
 function cohortProgressFrom(overall: number) {
   const of = (id: number) => {
@@ -110,36 +124,50 @@ function ClosingLine({ show }: { show: boolean }) {
   );
 }
 
-/** Full desktop experience: Lenis-smoothed scroll drives a 380vh track. */
+/**
+ * Full desktop experience: an autoplaying timeline, not a scroll-jacked
+ * track. Dust appears immediately and holds for ARRIVAL_MS, then the house
+ * assembles over ASSEMBLE_MS on a timer — finishing whether or not the
+ * visitor scrolls at all. Once resolved, the particle canvas fades out and
+ * is unmounted entirely (no stray particles left anywhere), leaving the
+ * real SVG house lit by a soft glow.
+ */
 function ScrollDrivenAssembly({ tier, onWebglError }: { tier: "full" | "reduced"; onWebglError: () => void }) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const overallProgressRef = useRef(0);
   const cohortProgressRef = useRef(cohortProgressFrom(0));
   const pointerRef = useRef({ x: 0, y: 0, active: false });
   const [introVisible, setIntroVisible] = useState(true);
   const [resolved, setResolved] = useState(false);
+  const [particlesActive, setParticlesActive] = useState(true);
 
   useEffect(() => {
-    const lenis = new Lenis({ smoothWheel: true, lerp: 0.1 });
     let raf = 0;
-    function loop(time: number) {
-      lenis.raf(time);
-      const track = trackRef.current;
-      if (track) {
-        const rect = track.getBoundingClientRect();
-        const total = rect.height - window.innerHeight;
-        const progressed = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
-        overallProgressRef.current = progressed;
-        cohortProgressRef.current = cohortProgressFrom(progressed);
-        setIntroVisible((prev) => {
-          const next = progressed < 0.06;
-          return prev === next ? prev : next;
-        });
-        setResolved((prev) => {
-          const next = progressed > 0.86;
-          return prev === next ? prev : next;
-        });
+    const start = performance.now();
+    let resolvedAt: number | null = null;
+
+    function loop(now: number) {
+      const elapsed = now - start;
+      const overall =
+        elapsed <= ARRIVAL_MS ? 0 : easeInOutCubic(Math.min(1, (elapsed - ARRIVAL_MS) / ASSEMBLE_MS));
+
+      cohortProgressRef.current = cohortProgressFrom(overall);
+
+      setIntroVisible((prev) => {
+        const next = overall < 0.06;
+        return prev === next ? prev : next;
+      });
+
+      const isResolved = overall >= 1;
+      setResolved((prev) => (prev === isResolved ? prev : isResolved));
+      if (isResolved && resolvedAt === null) resolvedAt = now;
+
+      // Once resolved and its own fade-out transition has had time to
+      // finish, stop rendering particles altogether and stop the loop —
+      // nothing left to animate, nothing left running in the background.
+      if (resolvedAt !== null && now - resolvedAt > TEARDOWN_MS) {
+        setParticlesActive((prev) => (prev ? false : prev));
+        return;
       }
+
       raf = requestAnimationFrame(loop);
     }
     raf = requestAnimationFrame(loop);
@@ -159,40 +187,49 @@ function ScrollDrivenAssembly({ tier, onWebglError }: { tier: "full" | "reduced"
 
     return () => {
       cancelAnimationFrame(raf);
-      lenis.destroy();
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerleave", onPointerLeave);
     };
   }, []);
 
   return (
-    <div ref={trackRef} className="relative" style={{ height: `${TRACK_VH}vh` }}>
-      <section
-        className="sticky top-0 h-screen overflow-hidden flex items-center justify-center"
-        style={{ background: "var(--void)" }}
+    <section
+      className="relative h-[100dvh] overflow-hidden flex items-center justify-center"
+      style={{ background: "var(--void)" }}
+    >
+      <div
+        className={cn("absolute inset-0 transition-opacity duration-700", resolved ? "opacity-0" : "opacity-100")}
       >
-        <ParticleAssemblyScene tier={tier} cohortProgressRef={cohortProgressRef} pointerRef={pointerRef} onError={onWebglError} />
-        <div className="absolute inset-0 flex items-center justify-center p-10">
-          <AssemblyHouseSVG
-            className={cn("max-h-[70vh] max-w-[90vw] transition-opacity duration-700", resolved ? "opacity-100" : "opacity-0")}
-          />
-        </div>
-        <HeroCopy show={introVisible} />
-        <div className="absolute z-10 bottom-[8%] left-1/2 -translate-x-1/2">
-          <ClosingLine show={resolved} />
-        </div>
+        {particlesActive ? (
+          <ParticleAssemblyScene tier={tier} cohortProgressRef={cohortProgressRef} pointerRef={pointerRef} onError={onWebglError} />
+        ) : null}
+      </div>
+
+      {/* Replaces the particle field once assembly completes: a soft light
+          and glow around the finished house, nothing loose left on screen. */}
+      <div
+        aria-hidden="true"
+        className={cn(
+          "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-1000",
+          resolved ? "opacity-100" : "opacity-0"
+        )}
+      >
         <div
-          aria-hidden="true"
-          className={cn(
-            "absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[var(--bone)]/50 transition-opacity duration-500",
-            introVisible ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <span className="text-eyebrow uppercase tracking-[0.16em]">Scroll</span>
-          <span className="w-px h-8 bg-gradient-to-b from-[var(--bone)]/50 to-transparent scroll-cue-stem" />
-        </div>
-      </section>
-    </div>
+          className="h-[55vh] w-[55vh] rounded-full blur-[100px]"
+          style={{ background: "radial-gradient(circle, var(--ember) 0%, transparent 70%)", opacity: 0.32 }}
+        />
+      </div>
+
+      <div className="absolute inset-0 flex items-center justify-center p-10">
+        <AssemblyHouseSVG
+          className={cn("max-h-[70vh] max-w-[90vw] transition-opacity duration-700", resolved ? "opacity-100" : "opacity-0")}
+        />
+      </div>
+      <HeroCopy show={introVisible} />
+      <div className="absolute z-10 bottom-[8%] left-1/2 -translate-x-1/2">
+        <ClosingLine show={resolved} />
+      </div>
+    </section>
   );
 }
 
