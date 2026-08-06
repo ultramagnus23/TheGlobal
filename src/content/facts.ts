@@ -54,6 +54,11 @@ const factsSchema = z.object({
   }),
 });
 
+// NOTE: contact numbers, GSTINs, and addresses below are ILLUSTRATIVE placeholders
+// (valid-format, non-functional) standing in for real business facts until the
+// owner supplies them — see README §3. They render as real-looking values
+// instead of literal {{TOKEN}} strings so the UI never shows broken syntax,
+// but every one of them must be replaced with real data before launch.
 export const facts = factsSchema.parse({
   brand: {
     name: "The Global",
