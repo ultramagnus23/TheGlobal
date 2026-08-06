@@ -27,19 +27,22 @@ npm run build
 ## 2. Environment variables
 
 Create a `.env.local` file in the project root (it's git-ignored, never commit it) for the
-enquiry form's email delivery. None of these are required for the site to run — until they're
-set, enquiry submissions are only logged to the server console.
+enquiry form's email delivery. Neither is required for the site to run — until both are set,
+enquiry submissions are still validated and accepted, just logged to the server console instead
+of emailed.
 
 ```bash
-# Pick ONE email provider and wire it into src/app/actions/enquiry.ts (see the TODO comment there):
 RESEND_API_KEY=
-# — or —
-SMTP_HOST=
-SMTP_PORT=
-SMTP_USER=
-SMTP_PASSWORD=
 ENQUIRY_NOTIFICATION_EMAIL=
+# Optional — defaults to Resend's onboarding sender if unset. Must be a domain verified in
+# your Resend account once you're past their sandbox sender.
+ENQUIRY_FROM_EMAIL=
 ```
+
+Sign up at [resend.com](https://resend.com), create an API key, and set `ENQUIRY_NOTIFICATION_EMAIL`
+to the inbox that should receive enquiries. `src/app/actions/enquiry.ts` sends via Resend's REST
+API directly (no SDK dependency) and falls back to the console log if delivery fails for any
+reason, so a bad key never breaks the form for the visitor.
 
 ## 3. Changing a phone number, WhatsApp number, or any business fact
 
@@ -95,19 +98,22 @@ or `somanyCategories` in [`src/content/divisions.ts`](src/content/divisions.ts) 
 
 ## 5. Swapping a placeholder image for a real photo
 
-Every photo on the site is currently a labelled placeholder box (built with the
-`PlaceholderImage` component) so the layout can be reviewed before real photography exists — see
-[`PHOTOGRAPHY-BRIEF.md`](PHOTOGRAPHY-BRIEF.md) for the shot list.
+Most photos on the site are AI-generated stand-ins living in `/public/images/generated/` — used
+only because no real photography exists yet, not because they're good enough to keep. A few spots
+(the authorisation certificate, any staff photo) are still flat labelled boxes on purpose — see
+[`PHOTOGRAPHY-BRIEF.md`](PHOTOGRAPHY-BRIEF.md) for why and for the full shot list.
 
-To swap one in:
-1. Add the optimised image file to `/public/images/`.
-2. Find the `<PlaceholderImage ... />` usage for that spot (search the component/page files for
-   its `label` text, e.g. `"Jaipur warehouse, racked to the ceiling"`).
-3. Replace it with Next.js's `<Image>` component:
-   ```tsx
-   <Image src="/images/warehouse-hero.jpg" alt="Interior of The Global's Jaipur warehouse" fill className="object-cover" />
-   ```
-   Keep the `alt` text descriptive — screen readers depend on it.
+The `PlaceholderImage` component (`src/components/PlaceholderImage.tsx`) handles both cases: pass
+it a `src` (or `imageSrc` on components like `DivisionHero`/`DivisionCard`) and it renders that
+image via `next/image`; omit `src` and it renders the flat labelled box instead.
+
+To swap a generated placeholder or flat box for a real photo:
+1. Add the optimised image file to `/public/images/` (a new subfolder is fine, e.g. `/public/images/real/`).
+2. Find where that spot's `src`/`imageSrc` (or, for flat placeholders, `label`) is set — search for
+   its text, e.g. `"Jaipur warehouse, racked to the ceiling"`, or search `/images/generated/` for
+   the current generated file.
+3. Point `src`/`imageSrc` at the new file, e.g. `"/images/real/warehouse-hero.jpg"`.
+4. Update the matching `alt` text to actually describe the new photo — screen readers depend on it.
 
 ## 6. Adding real PDFs to Downloads
 

@@ -7,6 +7,7 @@ const projectSchema = z.object({
   year: z.number(),
   range: z.string(),
   blurb: z.string(),
+  image: z.string().optional(),
 });
 
 export type Project = z.infer<typeof projectSchema>;
@@ -24,6 +25,7 @@ export const projects: Project[] = [
     year: 2024,
     range: "Somany vitrified tiles, 600×1200",
     blurb: "Full-floor supply from Jaipur warehouse stock, dispatched in phases as each floor topped out.",
+    image: "/images/real/project-villa.webp",
   },
   {
     slug: "commercial-plumbing-drainage",
@@ -32,6 +34,7 @@ export const projects: Project[] = [
     year: 2023,
     range: "Astral CPVC and SWR pipework",
     blurb: "Site-wise dispatch across three tower blocks on a single project pricing agreement.",
+    image: "/images/real/project-hospital.webp",
   },
   {
     slug: "township-sanitaryware-fitout",
@@ -40,6 +43,7 @@ export const projects: Project[] = [
     year: 2024,
     range: "Somany sanitaryware and bath fittings",
     blurb: "Bulk order held in Jaipur inventory and released to site in step with handover schedule.",
+    image: "/images/real/project-towers.webp",
   },
 ];
 

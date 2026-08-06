@@ -1,8 +1,15 @@
 # Photography Brief — The Global
 
-Every photo on the live site is currently a labelled placeholder box (grep the codebase for
-`PlaceholderImage` to find every spot one is used). This brief is the shot list to hand to a
-photographer in Jaipur to replace them.
+Most photos on the live site are now AI-generated stand-ins (`public/images/generated/`), used only
+because no real photography exists yet — not because they're good enough to keep. They are
+noticeably synthetic on close inspection (soft, slightly unreal detail) and must be replaced with
+real photography before launch. A few spots are still flat labelled placeholder boxes (grep the
+codebase for `PlaceholderImage` usages with no `src`/`imageSrc` passed) — these were deliberately
+left un-generated because a fabricated image would be misleading there: the authorisation
+certificate (a real legal document must not be simulated) and any photo purporting to show The
+Global's own staff (per the anti-pattern list: never a generic photo presented as if it were real
+people who work there). This brief is the shot list to hand to a photographer in Jaipur to replace
+every one of these — generated and flat placeholder alike.
 
 ## Direction
 

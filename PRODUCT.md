@@ -8,52 +8,57 @@ web
 
 ## Users
 
-Primary users are people who need construction materials in Rajasthan and want to know stock is physically available now, not ordered in after enquiry: dealers (stock, margins, credit terms), builders/contractors (bulk pricing, site-wise dispatch timed to a build schedule), architects/specifiers (full catalogues, technical spec sheets), government/tender buyers (authorisation letters, GSTIN, tender-grade documentation), and homeowners (want to see the Somany range and find a dealer or showroom). A purchase manager on a half-lit site at dusk and an architect in a studio at night are both target visitors who need to feel the company already has everything, physically, on hand.
+Five buyer types land on this site with different jobs:
+
+- **Dealers/retailers** — want stock depth proof, margins, and credit terms.
+- **Builders/contractors** — want to know if a material is in stock today and when it reaches their site.
+- **Architects/specifiers** — want spec sheets and technical data with no phone call required.
+- **Government/infrastructure/tender buyers** — want authorisation letters, GSTIN, and tender-grade documentation.
+- **Homeowners** — want to see the Somany range and find a showroom/dealer.
 
 ## Product Purpose
 
-The Global is a Jaipur-based construction materials distributor (est. 2007, 18+ years) operating as two entities: Global Sales (authorised Astral distributor — CPVC/UPVC/SWR pipes, fittings, fire protection systems, adhesives, water tanks) and Global Marketing (exclusive authorised Somany distributor for Rajasthan — floor tiles, wall tiles, large-format slabs, sanitaryware, bath fittings). The site exists to convert enquiries into stock-backed orders across five audiences and to route each to the right entity, product, or dealer.
+The Global is a construction-materials distributor in Jaipur, Rajasthan, operating since 2007 through two legal entities. The website exists to convert each of the five buyer types by making the single differentiator undeniable: they hold standing warehouse inventory rather than ordering in after an enquiry.
 
 ## Positioning
 
-Standing inventory in a Jaipur warehouse. The Global holds stock; competitors order in only after you enquire. This is the one claim a neighboring distributor without warehouse depth could not truthfully copy. Reinforced by the exclusive state-level Somany authorisation for Rajasthan (no other Rajasthan distributor can legally claim it) and by pan-India dispatch from that same standing stock.
+Standing inventory in a Jaipur warehouse is the mechanism a neighbouring distributor cannot truthfully copy without holding the same stock. Everything on the site — the copy, the planned live stock board, the honesty about out-of-stock items — exists to make that claim checkable, not just stated.
 
 ## Operating Context
 
-Two-entity structure requires visible routing throughout (which entity handles which enquiry). Audiences arrive with different jobs: a dealer wants margins and credit terms, a tender buyer wants GSTIN and authorisation letters, a homeowner wants to see product in person. Product catalogue spans two distinct supplier systems (Astral plumbing/drainage, Somany tiles/sanitaryware) that must stay visually and structurally distinguishable while sharing one site. Enquiries route through a server action (src/app/actions/enquiry.ts) with email delivery currently unconfigured (logs to console only until RESEND_API_KEY or SMTP env vars are set).
+Two legal entities under one brand:
+- **Global Sales** — Authorised Astral distributor: CPVC/UPVC/SWR pipes, fittings, fire systems, adhesives, water tanks.
+- **Global Marketing** — Exclusive Authorised Somany distributor for Rajasthan: floor tiles, wall tiles, large-format slabs, sanitaryware, bath fittings.
+
+Warehouse and dispatch operate out of Jaipur, serving dealers and site teams across Rajasthan's districts. Buyers site-visit, call, or browse the catalogue before committing to a bulk or phased order.
 
 ## Capabilities and Constraints
 
-- Stack: Next.js 16 (App Router), TypeScript, Tailwind CSS 4, React 19, Zod-validated content, framer-motion already a dependency. Three.js (or similar) will need to be added for the WebGL particle hero.
-- Content is centralized and typed: `src/content/facts.ts` (business facts), `products.ts`, `divisions.ts` (Astral/Somany categories), `projects.ts`, `audiences.ts`, `downloads.ts`, `faq.ts`. Editing one file propagates everywhere it's used.
-- **Known, accepted gap (user-confirmed, not to be treated as a blocking build failure for this engagement):** `src/content/facts.ts` still contains `{{TOKEN}}` placeholders for both entities' GSTIN, registered addresses, phone/WhatsApp numbers, and warehouse sqft — these are real business facts the user has not yet supplied. The user explicitly chose to proceed without blocking on this rather than provide them now. Do not fabricate values for these; keep the existing token convention so a real integrity-gate pass can be run later when real facts are supplied. Downloads PDFs referenced in `downloads.ts` are also not yet real files.
-- **Known, accepted gap (user-confirmed):** No real photography exists yet (every image is a labelled `PlaceholderImage` per `PHOTOGRAPHY-BRIEF.md`). The user's direction: use actual product imagery sourced from the official Astral and Somany brand websites where it depicts genuine Astral/Somany product lines The Global distributes (pipes, fittings, tiles, sanitaryware) — this is standard practice for an authorised distributor showing the supplier's own product photography. Do NOT fabricate warehouse interiors, staff, authorisation certificates, or named-project photography that would misrepresent The Global's own premises or history — those stay as honest placeholders until real photography exists. Any sourced image must be fetched with the user's awareness (this falls under the "downloading a file" permission category) and captioned/attributed accurately as manufacturer product photography, not as The Global's own site photography.
-- The homepage's signature particle-assembled house (hero) is hand-authored SVG/vector art, not a photograph — it is unaffected by the photography gap.
-- WCAG 2.2 AA is a hard target; see `ACCESSIBILITY.md` for prior decisions and axe-core results already established.
+- Next.js App Router site (existing codebase), TypeScript, Tailwind, deployed on Vercel.
+- **Data integrity is a hard, build-failing constraint carried over from a prior audit**: no `{{PLACEHOLDER}}` tokens, no zero-rendering counters, no dead tel:/wa.me links, no empty Downloads rows presented as live, no category filters for categories with zero products. A prebuild validator already exists for parts of this (`scripts/validate-content.ts` from Phase 0) and must keep failing the build on violations as new work lands.
+- The site currently runs on clearly-labelled DEMO data (a site-wide banner) — real GSTIN, addresses, and phone numbers have never been supplied. Any new work must keep this honest rather than implying the placeholders are real.
+- A real Somany 2026 catalogue PDF was supplied mid-project and used to populate real collection names/sizes/regions into the product catalogue; the PDF's own photography was not extracted (Somany's copyright) — generated stand-in imagery was used instead, labelled by convention as AI-generated pending real photography.
+- No Higgsfield/Monid/ffmpeg CLIs are installed in this environment, so any AI-video-chain approach (scroll-world style) is not executable here without the user installing and authenticating those tools themselves.
+- Free-tier image generation (Z-Image-Turbo via an MCP tool) is available but rate-limited (hit a daily quota mid-session); not a reliable unlimited asset pipeline.
 
 ## Brand Commitments
 
-- Name: The Global. Domain: theglobal.co.in.
-- Voice: confident, factual, slightly literary. Facts before poetry. Preserve existing lines verbatim where they appear: "We hold stock. That is the entire business model." and "Everything a building needs. Already here."
-- No em dashes in copy. No heading restated in its first sentence.
-- Concept spine for the whole site: raw material becomes built form (dust becomes tile, granules become pipe) — because a distributor turns scattered supply into a finished site. This is not decorative; every particle/motion moment must trace back to this idea.
-- Dark "night warehouse" theme for homepage and brand pages (Astral/Somany); light "daylight dispatch" theme for catalogue, forms, and long-reading pages. OKLCH color system, ember/glaze/bone on void; no pure black or white.
-- Category-reflex bans (explicit, carried from the brief): industrial-dark-plus-safety-orange-plus-concrete-texture; navy/white-plus-hard-hat-stock-photo; heritage Rajasthan pink; warm-paper editorial serif minimalism; terminal-green dark mode; glass cards over blurred warehouse photos. Also banned outright: side-stripe borders, gradient text, glassmorphism, hero-metric template, identical card grids, modal-first patterns.
+Voice: confident, factual, slightly literary, facts before poetry. Specific lines the user has asked to be preserved verbatim across rebuilds: "We hold stock. That is the entire business model." No em dashes in copy (explicit, repeated instruction — enforced project-wide, including in code comments authored for this project).
 
 ## Evidence on Hand
 
-- Real, structured business content already exists for: division/category taxonomy (Astral: CPVC, UPVC, SWR/drainage, fire protection, adhesives, water tanks; Somany: floor tiles, wall tiles, large-format slabs, sanitaryware, bath fittings), audience routing copy, FAQ, and a product schema with attributes/specs/downloads per SKU.
-- Not yet on hand, and explicitly not to be fabricated: GSTIN numbers, registered addresses, phone/WhatsApp numbers, warehouse square footage, named/evidenced project case studies with real photography, authorisation certificate scans, downloadable spec-sheet PDFs. State these as open items rather than inventing figures.
-- Manufacturer (Astral/Somany) official product photography may be sourced from their public websites per the Brand Commitments note above, with the user's awareness at fetch time.
+- Real product data for ~12 SKUs across Astral and Somany categories (`src/content/products.ts`), including 7 added from the real Somany catalogue PDF (Duragres Master, Durastone Master, Ceramica Neolla, Coverstone Technical Porcelain, Marvela Flortuff Master, Somany Vanity Collection, Somany Instant Geyser).
+- Real project case studies are explicitly TODO — `content/projects.ts` currently holds placeholder case studies pending real ones; no real project photography exists yet.
+- No real downloadable PDFs exist yet (catalogues, price lists, authorisation letters) — `DownloadCard` degrades gracefully to a "call us" state rather than a dead link, by design.
+- No real business facts (GSTIN, phone numbers, registered address, warehouse sqft) have been supplied — `src/content/facts.ts` and `company.ts` hold `{{TOKEN}}`-style or DEMO-labelled placeholders.
 
 ## Product Principles
 
-1. Stock reality is never more than one scroll away from any spectacle — the particle hero earns its scale because it dramatizes something literally true about the business (standing inventory), not because particles are fashionable.
-2. Two entities, one experience: routing between Global Sales and Global Marketing must always be legible, never a source of user confusion about who to contact for what.
-3. Design carries the persuasive load on the homepage and brand pages (Astral/Somany); the catalogue, forms, and documentation pages prioritize scanability and task completion over spectacle.
-4. No fabricated specificity: placeholders stay honestly labelled placeholders until real data exists, on both content (facts, PDFs) and imagery (warehouse, staff, certificates, named projects) axes.
-5. Motion always communicates assembly, settling, or dispatch — decorative-only animation gets cut.
+1. Facts precede poetry — every persuasive claim ships with the evidence next to it, not just the sentiment.
+2. Absence is honest — a missing value renders as nothing, never as a placeholder, zero, or fabricated data.
+3. The interaction should behave like a standing-inventory business, not just describe one — this was the identified gap in the previous design pass (a static, editorial-brochure feel despite a real-time-inventory pitch).
+4. Two-entity reality (Global Sales vs. Global Marketing) is real legal/GSTIN structure, not a stylistic device — it must stay accurate wherever contact/authorisation info appears.
 
 ## Accessibility & Inclusion
 
-WCAG 2.2 AA hard target, carried from `ACCESSIBILITY.md`. The particle/canvas hero sequence specifically must: be keyboard-navigable (arrow keys advance beats when canvas is focused), pair every canvas moment with real DOM text, respect `prefers-reduced-motion` with a complete static final frame (the finished house, not a blank state), maintain visible 2px focus rings and 44px touch targets, and pass axe with zero violations.
+WCAG 2.2 AA is an explicit, repeated requirement across this project's briefs: full keyboard navigability, visible focus rings, 44px touch targets, complete `prefers-reduced-motion` fallbacks that lose no information, axe zero violations. A large share of the real-world buyer base is expected to read Hindi first; a Hindi toggle has been requested but not yet built.

@@ -7,15 +7,27 @@ interface DivisionHeroProps {
   sub: string;
   imageLabel: string;
   imageAlt: string;
+  imageSrc?: string;
   ctaHref: string;
   ctaLabel: string;
 }
 
-export function DivisionHero({ eyebrow, heading, sub, imageLabel, imageAlt, ctaHref, ctaLabel }: DivisionHeroProps) {
+export function DivisionHero({
+  eyebrow,
+  heading,
+  sub,
+  imageLabel,
+  imageAlt,
+  imageSrc,
+  ctaHref,
+  ctaLabel,
+}: DivisionHeroProps) {
   return (
     <section className="relative min-h-[520px] flex items-center justify-center overflow-hidden">
-      <PlaceholderImage label={imageLabel} alt={imageAlt} dark className="absolute inset-0" />
-      <div className="absolute inset-0 bg-navy-900/50" aria-hidden="true" />
+      <div className="absolute inset-0">
+        <PlaceholderImage label={imageLabel} alt={imageAlt} src={imageSrc} dark priority className="h-full w-full" />
+      </div>
+      <div className="absolute inset-0 bg-navy-900/60" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-3xl px-6 py-20 text-center text-white space-y-5">
         <p
           className="text-eyebrow uppercase tracking-[0.1em] font-semibold"

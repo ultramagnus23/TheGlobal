@@ -1,112 +1,160 @@
 import Link from "next/link";
-import { HeroScrollStage } from "@/components/hero/HeroScrollStage";
-import { ScrollProvider } from "@/lib/useScrollProgress";
+import { ParticleAssemblyHero } from "@/components/ParticleAssemblyHero";
 import { CredentialBand } from "@/components/CredentialBand";
-import { DivisionCard } from "@/components/DivisionCard";
-import { BentoGrid } from "@/components/BentoGrid";
+import { AssemblyStory } from "@/components/AssemblyStory";
 import { StatementSection } from "@/components/StatementSection";
-import { ProjectPlate } from "@/components/ProjectPlate";
+import { TimelineSection } from "@/components/TimelineSection";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
+import { StockPulse } from "@/components/StockPulse";
+import { CollisionSection } from "@/components/CollisionSection";
+import { ProjectScreen } from "@/components/ProjectScreen";
+import { LogisticsSection } from "@/components/LogisticsSection";
 import { AudienceRow } from "@/components/AudienceRow";
 import { ContactSection } from "@/components/ContactSection";
-import { Reveal } from "@/components/Reveal";
+import { ColorRevealSection } from "@/components/ColorRevealSection";
+import { StaggerReveal } from "@/components/StaggerReveal";
+import { CareSection } from "@/components/CareSection";
 import { projects } from "@/content/projects";
 import { audiences } from "@/content/audiences";
-import { astralCategories, somanyCategories, astralWhyBuy, somanyWhyBuy } from "@/content/divisions";
+import { facts } from "@/content/facts";
 
 export default function Home() {
   return (
     <main id="main-content">
-      {/* 1. Hero */}
-      <ScrollProvider>
-        <HeroScrollStage />
-      </ScrollProvider>
+      {/* 1. Hero: The Materials Assemble */}
+      <ParticleAssemblyHero />
 
       {/* 2. Credential band */}
-      <Reveal>
+      <ColorRevealSection from="var(--void)" to="var(--canvas-sunken)">
         <CredentialBand />
-      </Reveal>
+      </ColorRevealSection>
 
-      {/* 3. The two divisions */}
-      <Reveal>
+      {/* 3. Who we supply: surfaced early so each of the five buyer types
+          reaches their next step before the editorial brand story, not after it */}
+      <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas)">
         <section className="py-24 md:py-32">
-          <div className="mx-auto max-w-5xl px-6">
-            <h2 className="text-h2 font-bold text-center mb-12">Two businesses. One standard.</h2>
-            <div className="flex flex-col md:flex-row gap-8">
-              <DivisionCard
-                brand="somany"
-                entityName="Global Marketing"
-                heading="Somany tiles & sanitaryware"
-                description="Exclusive authorised Somany distributor for Rajasthan — floor tiles, wall tiles, slabs, sanitaryware and bath fittings."
-                href="/somany"
-                imageLabel="Somany large-format slab"
-                imageAlt="A single large-format Somany tile slab photographed on a near-white sweep"
-                categories={somanyCategories}
-                whyBuy={somanyWhyBuy}
-              />
-              <DivisionCard
-                brand="astral"
-                entityName="Global Sales"
-                heading="Astral pipes & plumbing"
-                description="Authorised Astral distributor — pipes, fittings, plumbing, water and drainage systems."
-                href="/astral"
-                imageLabel="Astral pipe fitting"
-                imageAlt="A single Astral pipe joint photographed on a near-white sweep"
-                categories={astralCategories}
-                whyBuy={astralWhyBuy}
-              />
-            </div>
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 4. Capability bento */}
-      <Reveal>
-        <BentoGrid />
-      </Reveal>
-
-      {/* 5. Editorial statement */}
-      <Reveal>
-        <StatementSection />
-      </Reveal>
-
-      {/* 6. Selected projects */}
-      <Reveal>
-        <section className="py-24 md:py-32">
-          <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-h2 font-bold text-center mb-12">Supplied, delivered, built.</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {projects.map((project) => (
-                <ProjectPlate key={project.slug} project={project} />
-              ))}
-            </div>
-            <div className="text-center mt-12">
-              <Link
-                href="/projects"
-                className="text-lg font-semibold text-navy-800 underline underline-offset-4"
-              >
-                View all projects ›
-              </Link>
-            </div>
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 7. Who we supply */}
-      <Reveal>
-        <section className="py-24 md:py-32 bg-canvas-sunken">
           <div className="mx-auto max-w-3xl px-6">
-            <h2 className="text-h2 font-bold text-center mb-12">Who we supply</h2>
-            <div>
+            <h2 className="font-display text-h2 font-semibold text-ink text-center mb-12">
+              Who we supply
+            </h2>
+            <StaggerReveal>
               {audiences.map((audience) => (
                 <AudienceRow key={audience.label} audience={audience} />
               ))}
-            </div>
+            </StaggerReveal>
           </div>
         </section>
-      </Reveal>
+      </ColorRevealSection>
 
-      {/* 8. Contact */}
-      <ContactSection />
+      {/* 4. Assembly story: from foundation to finish */}
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
+        <section className="py-24 md:py-32">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-[42ch] mb-16">
+              <p className="text-eyebrow uppercase tracking-[0.1em] font-semibold text-ink-tertiary">
+                From Foundation to Finish
+              </p>
+              <h2 className="font-display text-h2 font-semibold text-ink mt-3">
+                Every remarkable building begins with invisible decisions.
+              </h2>
+            </div>
+            <AssemblyStory />
+          </div>
+        </section>
+      </ColorRevealSection>
+
+      {/* 5. Editorial statement */}
+      <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
+        <StatementSection />
+      </ColorRevealSection>
+
+      {/* 6. Who we are / timeline */}
+      <ColorRevealSection from="var(--navy-900)" to="var(--canvas)">
+        <section className="py-24 md:py-32">
+          <div className="mx-auto max-w-5xl px-6">
+            <p className="text-eyebrow uppercase tracking-[0.1em] font-semibold text-ink-tertiary">
+              Who We Are
+            </p>
+            <h2 className="font-display text-h2 font-semibold text-ink mt-3 max-w-[22ch]">
+              {facts.brand.yearsInOperation} of quietly keeping Rajasthan&apos;s construction sites
+              supplied.
+            </h2>
+            <div className="mt-12">
+              <TimelineSection />
+            </div>
+            <PlaceholderImage
+              label="Warehouse & distribution network"
+              alt="Warehouse and distribution network"
+              src="/images/real/warehouse-network.webp"
+              className="mt-12 h-[340px] rounded-2xl"
+            />
+          </div>
+        </section>
+      </ColorRevealSection>
+
+      {/* 6b. What reliability means here */}
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas)">
+        <CareSection />
+      </ColorRevealSection>
+
+      {/* 7. The Stock Pulse */}
+      <ColorRevealSection from="var(--canvas)" to="var(--navy-900)">
+        <section className="py-24 md:py-32">
+          <div className="mx-auto max-w-5xl px-6">
+            <StockPulse />
+          </div>
+        </section>
+      </ColorRevealSection>
+
+      {/* 8. The Collision: Astral x Somany */}
+      <ColorRevealSection from="var(--navy-900)" to="var(--navy-900)">
+        <CollisionSection />
+      </ColorRevealSection>
+
+      {/* 9. Projects */}
+      <ColorRevealSection from="var(--navy-900)" to="var(--canvas)">
+        <section className="pt-24 md:pt-32">
+          <div className="mx-auto max-w-6xl px-6 pb-16">
+            <p className="text-eyebrow uppercase tracking-[0.1em] font-semibold text-ink-tertiary">
+              Projects
+            </p>
+            <h2 className="font-display text-h2 font-semibold text-ink mt-3">
+              Where the materials end up.
+            </h2>
+          </div>
+          {projects.map((project) => (
+            <ProjectScreen key={project.slug} project={project} />
+          ))}
+          <div className="text-center py-12 border-t border-hairline">
+            <Link
+              href="/projects"
+              className="text-lg font-semibold text-navy-800 underline underline-offset-4"
+            >
+              View all projects ›
+            </Link>
+          </div>
+        </section>
+      </ColorRevealSection>
+
+      {/* 10. Logistics */}
+      <ColorRevealSection from="var(--canvas)" to="var(--canvas-sunken)">
+        <section className="py-24 md:py-32">
+          <div className="mx-auto max-w-5xl px-6">
+            <p className="text-eyebrow uppercase tracking-[0.1em] font-semibold text-ink-tertiary">
+              Logistics
+            </p>
+            <h2 className="font-display text-h2 font-semibold text-ink mt-3 mb-12 max-w-[18ch]">
+              From one warehouse in Jaipur, across every district that&apos;s building.
+            </h2>
+            <LogisticsSection />
+          </div>
+        </section>
+      </ColorRevealSection>
+
+      {/* 11. Contact */}
+      <ColorRevealSection from="var(--canvas-sunken)" to="var(--canvas-sunken)">
+        <ContactSection />
+      </ColorRevealSection>
     </main>
   );
 }

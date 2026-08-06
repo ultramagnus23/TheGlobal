@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { manrope, inter, ibmPlexSans, notoSansDevanagari } from "@/lib/fonts";
+import { fraunces, inter, ibmPlexSans, notoSansDevanagari } from "@/lib/fonts";
 import { facts } from "@/content/facts";
 import { Header } from "@/components/Header";
 import { MobileActionBar } from "@/components/MobileActionBar";
 import { Footer } from "@/components/Footer";
+import { DemoDataBanner } from "@/components/DemoDataBanner";
 import { buildSiteJsonLd, canonical } from "@/lib/jsonld";
 import "./globals.css";
 
@@ -32,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${inter.variable} ${ibmPlexSans.variable} ${notoSansDevanagari.variable} h-full`}
+      className={`${fraunces.variable} ${inter.variable} ${ibmPlexSans.variable} ${notoSansDevanagari.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">
         {buildSiteJsonLd().map((entry, i) => (
@@ -45,6 +46,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <DemoDataBanner />
         <Header />
         <div className="flex-1 flex flex-col pt-16 md:pt-[72px]">
           {children}

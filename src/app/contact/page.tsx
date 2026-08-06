@@ -6,6 +6,7 @@ import { facts } from "@/content/facts";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { canonical } from "@/lib/seo";
 import { FaqSection } from "@/components/FaqSection";
+import { StaggerReveal } from "@/components/StaggerReveal";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -23,7 +24,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-6xl px-6">
           <h1 className="text-h1 font-bold mb-4">Call us. We answer.</h1>
           <p className="text-lead text-ink-secondary max-w-[34em] mb-12">
-            Send an enquiry below, or call either entity directly — we hold stock and answer the
+            Send an enquiry below, or call either entity directly. We hold stock and answer the
             phone during business hours.
           </p>
 
@@ -32,7 +33,7 @@ export default function ContactPage() {
               <EnquiryForm />
             </div>
 
-            <div className="space-y-10">
+            <StaggerReveal className="space-y-10" step={120}>
               {[facts.entities.sales, facts.entities.marketing].map((entity) => {
                 const whatsappHref = buildWhatsAppLink(
                   entity.whatsapp,
@@ -74,7 +75,7 @@ export default function ContactPage() {
               })}
 
               <p className="text-body text-ink-secondary border-t border-border pt-6">{facts.hours}</p>
-            </div>
+            </StaggerReveal>
           </div>
         </div>
       </section>
