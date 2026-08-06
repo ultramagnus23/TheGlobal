@@ -82,8 +82,11 @@ function HeroCopy({ show }: { show: boolean }) {
   return (
     <div
       className={cn(
+        // Dims rather than disappears while the house assembles — stays
+        // legible and its CTAs stay reachable (see pointer-events-auto
+        // below) instead of vanishing the instant the sequence starts.
         "relative z-10 flex flex-col items-center text-center px-6 pointer-events-none transition-opacity duration-700",
-        show ? "opacity-100" : "opacity-0"
+        show ? "opacity-100" : "opacity-35"
       )}
     >
       <h1 className="font-sans font-black tracking-tight text-[var(--bone)] leading-[0.95] text-[11vw] sm:text-[8vw] md:text-[5.5vw]">
@@ -215,8 +218,8 @@ function ScrollDrivenAssembly({ tier, onWebglError }: { tier: "full" | "reduced"
         )}
       >
         <div
-          className="h-[55vh] w-[55vh] rounded-full blur-[100px]"
-          style={{ background: "radial-gradient(circle, var(--ember) 0%, transparent 70%)", opacity: 0.32 }}
+          className={cn("h-[55vh] w-[55vh] rounded-full blur-[100px]", resolved && "hero-glow-breathe")}
+          style={{ background: "radial-gradient(circle, var(--ember) 0%, transparent 70%)" }}
         />
       </div>
 
